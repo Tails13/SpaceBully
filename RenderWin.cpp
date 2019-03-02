@@ -2,7 +2,7 @@
 
 RenderWin::RenderWin() 
 {
-	window.create(sf::VideoMode(800, 600), "Space Bully");
+	window.create(sf::VideoMode(1000, 600), "Space Bully");
 }
 
 void RenderWin::Render()
