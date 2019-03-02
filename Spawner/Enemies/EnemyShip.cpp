@@ -7,5 +7,5 @@ EnemyShip::~EnemyShip()
 
 bool EnemyShip::IsInBounds()
 {
-	return this->hitbox.getPosition().x > 100.f;
+	return this->hitbox.getPosition().x > -50.f;
 }

@@ -39,3 +39,16 @@ public:
 private:
 	void CreateHitbox() override;
 };
+
+
+class CircleShip : public EnemyShip
+{
+public:
+	CircleShip();
+	CircleShip(const CircleShip&);
+	void SetPosition(float x, float y) override;
+	void Move() override;
+	CircleShip* Clone() const override;
+private:
+	void CreateHitbox() override;
+};

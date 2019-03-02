@@ -1,22 +1,29 @@
 #pragma once
 #include "Enemies/EnemyShip.h"
+#include "SpawnTypes.h"
 
 class EnemySpawner
 {
 public:
-	EnemySpawner();
-	void Spawn(std::list<EnemyShip*>&);
-	bool HasAPrototype();
-	void SetPrototype(EnemyShip*);
+	enum ShipType
+	{
+		Slow,
+		Fast,
+		Circle
+	};
 
-	bool bCreate;
+	EnemySpawner(ShipType, std::list<EnemyShip*>*);
+	void Update();
+
 private:
-	EnemyShip* MakeShip() const;
+	EnemyShip* MakeShip(int x, int y) const;
+	void Spawn();
 
-	EnemyShip* _prototype_ship;
-	float fCurrentTime;
-	float fStepTime;
-	int nObjectCount;
-	int nObjectOrdered;
+	std::list<EnemyShip*>* enemies_list;
+	SpawnType* spawn_type = nullptr;
+	EnemyShip* _prototype_ship = nullptr;
+	
+	float current_time;
+	float delay;
 };
 

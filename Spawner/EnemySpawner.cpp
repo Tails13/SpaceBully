@@ -1,56 +1,61 @@
 #include "EnemySpawner.h"
 
-EnemySpawner::EnemySpawner()
+EnemySpawner::EnemySpawner(ShipType ship, std::list<EnemyShip*>* e_list)
 {
-	_prototype_ship = nullptr;
-	bCreate = false;
-	fCurrentTime = 0.f;
-	fStepTime = 2.f;
-	nObjectCount = 0;
-	nObjectOrdered = 0;
+	enemies_list = e_list;
+
+	switch (ship)
+	{
+	case Slow:
+	{
+		_prototype_ship = new SlowShip;
+		spawn_type = new SpawnSlow;
+		break;
+	}
+	case Fast:
+	{
+		_prototype_ship = new FastShip;
+		spawn_type = new SpawnFast;
+		break;
+	}
+	case Circle:
+	{
+		_prototype_ship = new CircleShip;
+		spawn_type = new SpawnCircle;
+		break;
+	}
+	}
+
+	current_time = 0;
+	delay = spawn_type->SetDelay();
 }
 
-
-
-void EnemySpawner::Spawn(std::list<EnemyShip*>& _sprite_list)
+void EnemySpawner::Update()
 {
-	if (nObjectOrdered == 0)	// Рандомим сколько будет спавниться мобов
-		nObjectOrdered = rand() % 5 + 1;
-
-	if (nObjectCount < nObjectOrdered)  
+	current_time += 0.001;
+	if (current_time > delay)
 	{
-		fCurrentTime += 0.001f;		// Считаем время между спавном отдельных мобов
-		if (fCurrentTime >= fStepTime)
+		spawn_type->SetSpawnPositions();
+		this->Spawn();
+		current_time = 0;
+	}
+}
+
+void EnemySpawner::Spawn()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		if (spawn_type->ship_positions[i].x != 0)
 		{
-			_sprite_list.push_back(MakeShip());  // Непосредственно спавн
-			fCurrentTime = 0;
-			nObjectCount++;
+			enemies_list->push_front(MakeShip(spawn_type->ship_positions[i].x, spawn_type->ship_positions[i].y));
 		}
 	}
-
-	if (nObjectCount == nObjectOrdered)  // Завершаем цикл спавна.
-	{
-		SetPrototype(nullptr);
-		bCreate = false;
-		nObjectCount = 0;
-		nObjectOrdered = 0;
-	}
 }
 
-EnemyShip* EnemySpawner::MakeShip() const
+EnemyShip* EnemySpawner::MakeShip(int x, int y) const
 {
-	float temp_y = (rand() % 10 + 1) * 50; 
 	EnemyShip* temp = _prototype_ship->Clone();
-	temp->SetPosition(900.f, temp_y);
+	temp->SetPosition(x, y);
 	return temp;
 }
 
-bool EnemySpawner::HasAPrototype()
-{
-	return _prototype_ship != nullptr;
-}
-
-void EnemySpawner::SetPrototype(EnemyShip* prot)
-{
-	_prototype_ship = prot;
-}
