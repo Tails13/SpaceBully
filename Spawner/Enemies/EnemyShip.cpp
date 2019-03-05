@@ -9,3 +9,8 @@ bool EnemyShip::IsInBounds()
 {
 	return this->hitbox.getPosition().x > -50.f;
 }
+
+bool EnemyShip::IsBehind()
+{
+	return this->hitbox.getPosition().x < 1000;
+}

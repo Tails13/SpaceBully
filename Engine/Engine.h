@@ -1,6 +1,6 @@
 #pragma once
-#include "Spaceship.h"
-#include "Spawner/EnemySpawner.h"
+#include "../MainShip/Spaceship.h"
+#include "../Spawner/EnemySpawner.h"
 
 class Engine
 {

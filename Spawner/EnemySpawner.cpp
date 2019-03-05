@@ -32,7 +32,7 @@ EnemySpawner::EnemySpawner(ShipType ship, std::list<EnemyShip*>* e_list)
 
 void EnemySpawner::Update()
 {
-	current_time += 0.001;
+	current_time += 0.001f;
 	if (current_time > delay)
 	{
 		spawn_type->SetSpawnPositions();
