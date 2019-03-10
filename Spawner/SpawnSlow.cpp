@@ -2,7 +2,7 @@
 
 float SpawnSlow::SetDelay()
 {
-	return 40.f;
+	return 400.f;
 }
 
 void SpawnSlow::SetSpawnPositions()

@@ -6,6 +6,8 @@ FastShip::FastShip()
 	swing_y = 0.f;
 	direction_y = Down;
 	up_moving = true;
+	this->speed_x = 6.f;
+	this->speed_y = 1.f;
 }
 
 FastShip::FastShip(const FastShip& other)
@@ -14,6 +16,8 @@ FastShip::FastShip(const FastShip& other)
 	this->swing_y = other.swing_y;
 	this->direction_y = Down;
 	this->up_moving = true;
+	this->speed_x = other.speed_x;
+	this->speed_y = other.speed_y;
 }
 
 void FastShip::SetPosition(float x, float y)
@@ -23,12 +27,12 @@ void FastShip::SetPosition(float x, float y)
 
 void FastShip::Move()
 {
-	float new_x = this->hitbox.getPosition().x - 0.06f;
+	float new_x = this->hitbox.getPosition().x - speed_x;
 	float new_y = this->hitbox.getPosition().y;
 
-	if (this->IsBehind())
+	if (this->IsShow())
 	{
-		swing_y += 0.01f;
+		swing_y += speed_y;
 		if (swing_y >= 50.f)
 		{
 			ChangeDirect();
@@ -37,11 +41,11 @@ void FastShip::Move()
 
 		if (direction_y == Up)
 		{
-			new_y = this->hitbox.getPosition().y - 0.01f;
+			new_y = this->hitbox.getPosition().y - speed_y;
 		}
 		else if (direction_y == Down)
 		{
-			new_y = this->hitbox.getPosition().y + 0.01f;
+			new_y = this->hitbox.getPosition().y + speed_y;
 		}
 	}
 

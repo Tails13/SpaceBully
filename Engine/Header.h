@@ -1,5 +1,8 @@
 #pragma once
 
+
+
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <ctime>
@@ -7,4 +10,6 @@
 #include <list>
 #include <iostream>
 
+#include <Windows.h>
+//#include <sysinfoapi.h>
 

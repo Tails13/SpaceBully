@@ -2,7 +2,7 @@
 
 float SpawnCircle::SetDelay()
 {
-	return 100.f;
+	return 1000.f;
 }
 
 void SpawnCircle::SetSpawnPositions()

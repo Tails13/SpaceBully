@@ -13,7 +13,7 @@ private:
 	void EnemiesMove();
 	
 	RenderWin rw;
-	Spaceship sp_ship;
+	Spaceship main_ship;
 	EnemySpawner enemy_spawner_1;
 	EnemySpawner enemy_spawner_2;
 	EnemySpawner enemy_spawner_3;

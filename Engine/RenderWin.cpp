@@ -20,3 +20,8 @@ void RenderWin::PutSprite(sf::Shape* sprite)
 {
 	sprite_list.push_back(sprite);
 }
+
+bool RenderWin::RenderListIsEmpty()
+{
+	return sprite_list.empty();
+}

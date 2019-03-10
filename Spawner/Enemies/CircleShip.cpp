@@ -3,11 +3,15 @@
 CircleShip::CircleShip()
 {
 	CreateHitbox();
+	this->speed_x = 5.f;
+	this->speed_y = 0.f;
 }
 
 CircleShip::CircleShip(const CircleShip& other)
 {
 	this->CreateHitbox();
+	this->speed_x = other.speed_x;
+	this->speed_y = other.speed_y;
 }
 
 void CircleShip::SetPosition(float x, float y)
@@ -17,7 +21,7 @@ void CircleShip::SetPosition(float x, float y)
 
 void CircleShip::Move()
 {
-	float new_x = this->hitbox.getPosition().x - 0.05f;
+	float new_x = this->hitbox.getPosition().x - speed_x;
 	float new_y = this->hitbox.getPosition().y;
 	SetPosition(new_x, new_y);
 }

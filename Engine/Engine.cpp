@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine() :
-	sp_ship(),
+	main_ship(),
 	enemy_spawner_1(EnemySpawner::ShipType::Slow, &enemy_list),
 	enemy_spawner_2(EnemySpawner::ShipType::Fast, &enemy_list),
 	enemy_spawner_3(EnemySpawner::ShipType::Circle, &enemy_list)
@@ -17,19 +17,20 @@ void Engine::Update()
 			rw.window.close();
 	}
 
-
+	main_ship.Control();
 	EnemiesMove();
 
 	enemy_spawner_1.Update();
 	enemy_spawner_2.Update();
 	enemy_spawner_3.Update();
 
-	sp_ship.Draw(&rw);
+	main_ship.Draw(&rw);
 }
 
 void Engine::Render()
 {
-	rw.Render();
+	if (!rw.RenderListIsEmpty())
+		rw.Render();
 }
 
 void Engine::EnemiesMove()
@@ -42,7 +43,8 @@ void Engine::EnemiesMove()
 			if ((*it)->IsInBounds())	// Если корабль в грагицах экрана выполняем перемещение
 			{
 				(*it)->Move();
-				rw.PutSprite(&(*it)->hitbox);  // Передаем все корабли в RenderWin для отрисовки
+				if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
+					rw.PutSprite(&(*it)->hitbox);  
 			}
 			else  // Или удляем корабль, если он покинул экран
 			{

@@ -12,8 +12,13 @@ public:
 	virtual EnemyShip* Clone() const = 0;
 	virtual void Move() = 0;
 	virtual void SetPosition(float x, float y) = 0;
-	bool IsInBounds();
-	bool IsBehind();
+	bool IsInBounds();  // Вышел ли корабль за пределы экрана.
+	bool IsShow();	// Появился ли корабль на экране.
+	float GetSpeedX();
+	float GetSpeedY();
+protected:
+	float speed_x;
+	float speed_y;
 private:
 	virtual void CreateHitbox() = 0;
 };
@@ -31,7 +36,7 @@ private:
 	void CreateHitbox() override;
 	void ChangeDirect();
 
-	float swing_y;
+	float swing_y;		// Колебания движения вверх-вниз
 	Direction direction_y;
 	bool up_moving;
 };
