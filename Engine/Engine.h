@@ -11,6 +11,7 @@ public:
 	void Render();
 private:
 	void EnemiesMove();
+	void BulletsMove();
 	
 	RenderWin rw;
 	Spaceship main_ship;
@@ -18,4 +19,5 @@ private:
 	EnemySpawner enemy_spawner_2;
 	EnemySpawner enemy_spawner_3;
 	std::list<EnemyShip*> enemy_list;
+	std::list<Gun*> bullet_list;
 };

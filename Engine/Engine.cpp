@@ -6,6 +6,7 @@ Engine::Engine() :
 	enemy_spawner_2(EnemySpawner::ShipType::Fast, &enemy_list),
 	enemy_spawner_3(EnemySpawner::ShipType::Circle, &enemy_list)
 {
+	main_ship.Equip(Spaceship::Guns::Simple);
 }
 
 void Engine::Update()
@@ -17,8 +18,11 @@ void Engine::Update()
 			rw.window.close();
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) bullet_list.push_back(main_ship.Shoot());
+
 	main_ship.Control();
 	EnemiesMove();
+	BulletsMove();
 
 	enemy_spawner_1.Update();
 	enemy_spawner_2.Update();
@@ -55,6 +59,16 @@ void Engine::EnemiesMove()
 				if (it == enemy_list.end()) break;
 			}
 		}
+	}
+}
+
+void Engine::BulletsMove()
+{
+	std::list<Gun*>::iterator it;
+	for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
+	{
+		(*it)->Update();
+		rw.PutSprite(&(*it)->hitbox);
 	}
 }
 

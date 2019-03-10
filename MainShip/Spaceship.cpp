@@ -4,6 +4,7 @@ Spaceship::Spaceship()
 {
 	CreateHitbox();
 	speed = 4.f;
+	gun = nullptr;
 }
 
 void Spaceship::CreateHitbox()
@@ -54,6 +55,24 @@ void Spaceship::SpeedUp(float boost)
 {
 	speed += boost;
 }
+
+void Spaceship::Equip(Spaceship::Guns gun_type)
+{
+	switch (gun_type)
+	{
+	case Simple:
+	{
+		gun = new Gun_Simple(this);
+		break;
+	}
+	}
+}
+
+Gun* Spaceship::Shoot()
+{
+	return gun->Clone();
+}
+
 
 void Spaceship::Draw(RenderWin* rm)
 {

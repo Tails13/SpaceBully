@@ -2,7 +2,7 @@
 
 EnemyShip::~EnemyShip()
 {
-	std::cout << "destructor\n";
+	std::cout << "destructor Ship\n";
 }
 
 bool EnemyShip::IsInBounds()
