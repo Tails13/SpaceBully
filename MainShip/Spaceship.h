@@ -7,7 +7,7 @@ class Gun;
 class Spaceship
 {
 public:
-	enum Guns{Simple, Double, Laser, DoubleLaser};
+	enum GunType{Simple, Double, Laser, DoubleLaser};
 
 	Spaceship(); 
 	sf::ConvexShape hitbox;
@@ -15,7 +15,8 @@ public:
 	void Control();
 	void SpeedUp(float);
 
-	void Equip(Guns);
+	void Equip(GunType);
+	GunType GetGunType();
 	Gun* Shoot();
 private:
 	enum Direction { Up, Down, Forward, Back };
@@ -24,7 +25,7 @@ private:
 
 	float speed;
 	Gun* gun;
-
+	GunType gun_type;
 };
 
 

@@ -5,6 +5,7 @@ Spaceship::Spaceship()
 	CreateHitbox();
 	speed = 4.f;
 	gun = nullptr;
+	Equip(Spaceship::GunType::DoubleLaser);
 }
 
 void Spaceship::CreateHitbox()
@@ -56,16 +57,23 @@ void Spaceship::SpeedUp(float boost)
 	speed += boost;
 }
 
-void Spaceship::Equip(Spaceship::Guns gun_type)
+void Spaceship::Equip(Spaceship::GunType gt)
 {
-	switch (gun_type)
-	{
-	case Simple:
+	gun_type = gt;
+
+	if (gun_type == GunType::Simple || gun_type == GunType::Double)
 	{
 		gun = new Gun_Simple(this);
-		break;
 	}
+	else if (gun_type == GunType::Laser || gun_type == GunType::DoubleLaser)
+	{
+		gun = new Gun_Laser(this);
 	}
+}
+
+Spaceship::GunType Spaceship::GetGunType()
+{
+	return gun_type;
 }
 
 Gun* Spaceship::Shoot()

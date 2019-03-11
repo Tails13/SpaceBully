@@ -12,6 +12,7 @@ public:
 private:
 	void EnemiesMove();
 	void BulletsMove();
+	void DoubleShot();
 	
 	RenderWin rw;
 	Spaceship main_ship;

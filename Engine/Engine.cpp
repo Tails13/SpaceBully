@@ -6,7 +6,6 @@ Engine::Engine() :
 	enemy_spawner_2(EnemySpawner::ShipType::Fast, &enemy_list),
 	enemy_spawner_3(EnemySpawner::ShipType::Circle, &enemy_list)
 {
-	main_ship.Equip(Spaceship::Guns::Simple);
 }
 
 void Engine::Update()
@@ -18,7 +17,16 @@ void Engine::Update()
 			rw.window.close();
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) bullet_list.push_back(main_ship.Shoot());
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) 
+	{
+		if (main_ship.GetGunType() == Spaceship::GunType::Double || 
+			main_ship.GetGunType() == Spaceship::GunType::DoubleLaser)
+		{
+			DoubleShot();
+		}
+		else
+			bullet_list.push_back(main_ship.Shoot());
+	}
 
 	main_ship.Control();
 	EnemiesMove();
@@ -60,6 +68,16 @@ void Engine::EnemiesMove()
 			}
 		}
 	}
+}
+
+void Engine::DoubleShot()
+{
+	Gun* temp_bullet_1 = main_ship.Shoot();
+	Gun* temp_bullet_2 = main_ship.Shoot();
+	temp_bullet_1->hitbox.move(sf::Vector2f(0.f, -10.f));
+	temp_bullet_2->hitbox.move(sf::Vector2f(0.f, 10.f));
+	bullet_list.push_back(temp_bullet_1);
+	bullet_list.push_back(temp_bullet_2);
 }
 
 void Engine::BulletsMove()
