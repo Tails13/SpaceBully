@@ -16,9 +16,15 @@ public:
 	bool IsShow();	// Появился ли корабль на экране.
 	float GetSpeedX();
 	float GetSpeedY();
+	float Width();
+	float Height();
+	float X();
+	float Y();
 protected:
 	float speed_x;
 	float speed_y;
+	float width;
+	float height;
 private:
 	virtual void CreateHitbox() = 0;
 };

@@ -9,6 +9,11 @@ public:
 	virtual Gun* Clone() = 0;
 	void Update();
 	sf::Shape* GetHitbox();
+	bool IsOutSide();
+	float Width();
+	float Height();
+	float X();
+	float Y();
 
 	sf::ConvexShape hitbox;
 protected:
@@ -17,6 +22,8 @@ protected:
 
 	const Spaceship* main_ship;
 	float speed;
+	float width;
+	float height;
 };
 
 

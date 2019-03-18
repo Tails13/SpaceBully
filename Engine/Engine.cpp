@@ -19,16 +19,14 @@ void Engine::Update()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) 
 	{
-		if (main_ship.GetGunType() == Spaceship::GunType::Double || 
-			main_ship.GetGunType() == Spaceship::GunType::DoubleLaser)
-		{
-			DoubleShot();
-		}
+		if (main_ship.HasDoubleGun())
+			main_ship.DoubleShoot(bullet_list);
 		else
-			bullet_list.push_back(main_ship.Shoot());
+			main_ship.Shoot(bullet_list);
 	}
 
-	main_ship.Control();
+	main_ship.Update();
+
 	EnemiesMove();
 	BulletsMove();
 
@@ -63,30 +61,29 @@ void Engine::EnemiesMove()
 				EnemyShip* temp = *it;
 				it = enemy_list.erase(it);
 				delete (temp);	
-				std::cout << "Ship destroy\n";
 				if (it == enemy_list.end()) break;
 			}
 		}
 	}
 }
 
-void Engine::DoubleShot()
-{
-	Gun* temp_bullet_1 = main_ship.Shoot();
-	Gun* temp_bullet_2 = main_ship.Shoot();
-	temp_bullet_1->hitbox.move(sf::Vector2f(0.f, -10.f));
-	temp_bullet_2->hitbox.move(sf::Vector2f(0.f, 10.f));
-	bullet_list.push_back(temp_bullet_1);
-	bullet_list.push_back(temp_bullet_2);
-}
-
-void Engine::BulletsMove()
+void Engine::BulletsMove()  //Тоже самое с пулями 
 {
 	std::list<Gun*>::iterator it;
 	for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
 	{
-		(*it)->Update();
-		rw.PutSprite(&(*it)->hitbox);
+		if ((*it)->IsOutSide())
+		{
+			Gun* temp = *it;
+			it = bullet_list.erase(it);
+			delete (temp);
+			if (it == bullet_list.end()) break;
+		}
+		else
+		{
+			(*it)->Update();
+			rw.PutSprite(&(*it)->hitbox);
+		}
 	}
 }
 

@@ -3,11 +3,15 @@
 Gun_Laser::Gun_Laser(Spaceship* ms)
 {
 	this->main_ship = ms;
-	this->speed = 10.f;
+	this->speed = 20.f;
+	this->width = 50.f;
+	this->height = 10.f;
 }
 
 Gun_Laser::Gun_Laser(const Gun_Laser& other)
 {
+	this->width = other.width;
+	this->height = other.height;
 	this->main_ship = other.main_ship;
 	this->speed = other.speed;
 	this->CreateHitbox();

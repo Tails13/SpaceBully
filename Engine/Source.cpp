@@ -25,7 +25,7 @@ int main()
 
 			next_game_tick += SKIP_TICKS;
 			loops++;
-			std::cout << next_game_tick << std::endl;
+			//std::cout << next_game_tick << std::endl;
 		}
 
 		interpolation = float(GetTickCount64() + SKIP_TICKS - next_game_tick) / float(SKIP_TICKS);

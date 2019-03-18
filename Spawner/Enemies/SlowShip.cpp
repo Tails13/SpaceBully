@@ -8,10 +8,14 @@ SlowShip::SlowShip()
 	up_moving = true;
 	this->speed_x = 3.f;
 	this->speed_y = 1.f;
+	this->width = 50.f;
+	this->height = 50.f;
 }
 
 SlowShip::SlowShip(const SlowShip& other)
 {
+	this->width = other.width;
+	this->height = other.height;
 	this->CreateHitbox();
 	this->swing_y = other.swing_y;
 	this->direction_y = Down;
@@ -80,8 +84,8 @@ void SlowShip::CreateHitbox()
 {
 	hitbox.setPointCount(4);
 	hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
-	hitbox.setPoint(1, sf::Vector2f(50.f, 0.f));
-	hitbox.setPoint(2, sf::Vector2f(50.f, 50.f));
-	hitbox.setPoint(3, sf::Vector2f(0.f, 50.f));
+	hitbox.setPoint(1, sf::Vector2f(width, 0.f));
+	hitbox.setPoint(2, sf::Vector2f(width, height));
+	hitbox.setPoint(3, sf::Vector2f(0.f, height));
 	hitbox.setFillColor(sf::Color::Red);
 }

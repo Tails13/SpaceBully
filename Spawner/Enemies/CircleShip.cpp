@@ -5,10 +5,14 @@ CircleShip::CircleShip()
 	CreateHitbox();
 	this->speed_x = 5.f;
 	this->speed_y = 0.f;
+	this->width = 50.f;
+	this->height = 50.f;
 }
 
 CircleShip::CircleShip(const CircleShip& other)
 {
+	this->width = other.width;
+	this->height = other.height;
 	this->CreateHitbox();
 	this->speed_x = other.speed_x;
 	this->speed_y = other.speed_y;
@@ -35,8 +39,8 @@ void CircleShip::CreateHitbox()
 {
 	hitbox.setPointCount(4);
 	hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
-	hitbox.setPoint(1, sf::Vector2f(50.f, 0.f));
-	hitbox.setPoint(2, sf::Vector2f(50.f, 50.f));
-	hitbox.setPoint(3, sf::Vector2f(0.f, 50.f));
+	hitbox.setPoint(1, sf::Vector2f(width, 0.f));
+	hitbox.setPoint(2, sf::Vector2f(width, height));
+	hitbox.setPoint(3, sf::Vector2f(0.f, height));
 	hitbox.setFillColor(sf::Color::Blue);
 }

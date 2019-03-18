@@ -3,9 +3,20 @@
 Spaceship::Spaceship() 
 {
 	CreateHitbox();
+	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
 	speed = 4.f;
-	gun = nullptr;
-	Equip(Spaceship::GunType::DoubleLaser);
+	bullet = nullptr;
+	double_shot = false;
+	shoot_cooldown = false;
+	sc_count = 0.f;
+	Equip(Spaceship::GunType::Simple);
+}
+
+void Spaceship::Update()
+{
+	this->Control();
+
+	if (shoot_cooldown == true) this->Cooldown();
 }
 
 void Spaceship::CreateHitbox()
@@ -61,13 +72,13 @@ void Spaceship::Equip(Spaceship::GunType gt)
 {
 	gun_type = gt;
 
-	if (gun_type == GunType::Simple || gun_type == GunType::Double)
+	if (gun_type == GunType::Simple)
 	{
-		gun = new Gun_Simple(this);
+		bullet = new Gun_Simple(this);
 	}
-	else if (gun_type == GunType::Laser || gun_type == GunType::DoubleLaser)
+	else if (gun_type == GunType::Laser)
 	{
-		gun = new Gun_Laser(this);
+		bullet = new Gun_Laser(this);
 	}
 }
 
@@ -76,9 +87,43 @@ Spaceship::GunType Spaceship::GetGunType()
 	return gun_type;
 }
 
-Gun* Spaceship::Shoot()
+bool Spaceship::HasDoubleGun()
 {
-	return gun->Clone();
+	return double_shot;
+}
+
+void Spaceship::Cooldown()
+{
+	sc_count -= 0.1f;
+	if (sc_count <= 0) shoot_cooldown = false;
+}
+
+void Spaceship::Shoot(std::list<Gun*>& bullet_list)
+{
+	if (shoot_cooldown == false)
+	{
+		Gun* temp_bullet = bullet->Clone();
+		bullet_list.push_back(temp_bullet);
+
+		shoot_cooldown = true;
+		sc_count = 1.f;
+	}
+}
+
+void Spaceship::DoubleShoot(std::list<Gun*>& bullet_list)
+{
+	if (shoot_cooldown == false)
+	{
+		Gun* temp_bullet_1 = bullet->Clone();
+		Gun* temp_bullet_2 = bullet->Clone();
+		temp_bullet_1->hitbox.move(sf::Vector2f(0.f, -10.f));
+		temp_bullet_2->hitbox.move(sf::Vector2f(0.f, 10.f));
+		bullet_list.push_back(temp_bullet_1);
+		bullet_list.push_back(temp_bullet_2);
+
+		shoot_cooldown = true;
+		sc_count = 3.f;
+	}
 }
 
 

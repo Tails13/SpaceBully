@@ -8,10 +8,14 @@ FastShip::FastShip()
 	up_moving = true;
 	this->speed_x = 6.f;
 	this->speed_y = 1.f;
+	this->width = 50.f;
+	this->height = 30.f;
 }
 
 FastShip::FastShip(const FastShip& other)
 {
+	this->width = other.width;
+	this->height = other.height;
 	CreateHitbox();
 	this->swing_y = other.swing_y;
 	this->direction_y = Down;
@@ -73,8 +77,8 @@ void FastShip::CreateHitbox()
 {
 	hitbox.setPointCount(4);
 	hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
-	hitbox.setPoint(1, sf::Vector2f(50.f, 0.f));
-	hitbox.setPoint(2, sf::Vector2f(50.f, 30.f));
-	hitbox.setPoint(3, sf::Vector2f(0.f, 30.f));
+	hitbox.setPoint(1, sf::Vector2f(width, 0.f));
+	hitbox.setPoint(2, sf::Vector2f(width, height));
+	hitbox.setPoint(3, sf::Vector2f(0.f, height));
 	hitbox.setFillColor(sf::Color::Green);
 }
