@@ -50,13 +50,15 @@ float Gun::Y()
 
 void Gun::CreateHitbox()
 {
-	float x = main_ship->hitbox.getPosition().x + 75.f;
+	this->hitbox.setPointCount(4);
+	this->hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
+	this->hitbox.setPoint(1, sf::Vector2f(width, 0.f));
+	this->hitbox.setPoint(2, sf::Vector2f(width, height));
+	this->hitbox.setPoint(3, sf::Vector2f(0.f, height));
+	this->hitbox.setFillColor(sf::Color::Yellow);
+
+	float x = main_ship->hitbox.getPosition().x + 65.f;
 	float y = main_ship->hitbox.getPosition().y + 20.f;
 
-	this->hitbox.setPointCount(4);
-	this->hitbox.setPoint(0, sf::Vector2f(x, y));
-	this->hitbox.setPoint(1, sf::Vector2f(x + width, y));
-	this->hitbox.setPoint(2, sf::Vector2f(x + width, y + height));
-	this->hitbox.setPoint(3, sf::Vector2f(x, y + height));
-	this->hitbox.setFillColor(sf::Color::Yellow);
+	hitbox.setPosition(sf::Vector2f(this->X() + x, this->Y() + y));
 }

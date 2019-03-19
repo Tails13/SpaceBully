@@ -4,7 +4,8 @@ Engine::Engine() :
 	main_ship(),
 	enemy_spawner_1(EnemySpawner::ShipType::Slow, &enemy_list),
 	enemy_spawner_2(EnemySpawner::ShipType::Fast, &enemy_list),
-	enemy_spawner_3(EnemySpawner::ShipType::Circle, &enemy_list)
+	enemy_spawner_3(EnemySpawner::ShipType::Circle, &enemy_list),
+	collision_handler(&enemy_list, &bullet_list, &main_ship)
 {
 }
 
@@ -26,6 +27,9 @@ void Engine::Update()
 	}
 
 	main_ship.Update();
+
+	if (!enemy_list.empty() && !bullet_list.empty())
+		collision_handler.CheckCollisions();
 
 	EnemiesMove();
 	BulletsMove();
@@ -72,7 +76,7 @@ void Engine::BulletsMove()  //Тоже самое с пулями
 	std::list<Gun*>::iterator it;
 	for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
 	{
-		if ((*it)->IsOutSide())
+		if ((*it)->IsOutSide() || (*it)->distruction == true)
 		{
 			Gun* temp = *it;
 			it = bullet_list.erase(it);

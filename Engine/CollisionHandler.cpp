@@ -26,5 +26,18 @@ bool CollisionHandler::CheckMainShipCollision(Spaceship*, EnemyShip*)
 
 void CollisionHandler::CheckCollisions()
 {
-	
+	std::list<EnemyShip*>::iterator en_it;
+	std::list<Gun*>::iterator b_it;
+	for (b_it = (*bullet_list).begin(); b_it != (*bullet_list).end(); b_it++)
+	{
+		for (en_it = (*enemy_list).begin(); en_it != (*enemy_list).end(); en_it++)
+		{
+			if (CheckBulletsColision(*b_it, *en_it))
+			{
+				std::cout << "Damage deal!!" << std::endl;
+
+				(*b_it)->distruction = true;
+			}
+		}
+	}
 }

@@ -16,6 +16,7 @@ public:
 	float Y();
 
 	sf::ConvexShape hitbox;
+	bool distruction;
 protected:
 	void Move();
 	void CreateHitbox();

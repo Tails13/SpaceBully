@@ -1,5 +1,6 @@
 #pragma once
-#include "Engine.h"
+#include "../MainShip/Spaceship.h"
+#include "../Spawner/EnemySpawner.h"
 
 class CollisionHandler
 {
