@@ -2,7 +2,7 @@
 
 EnemyShip::~EnemyShip()
 {
-	//std::cout << "destructor Ship\n";
+	std::cout << "destructor Ship\n";
 }
 
 bool EnemyShip::IsInBounds()
@@ -13,6 +13,21 @@ bool EnemyShip::IsInBounds()
 bool EnemyShip::IsShow()
 {
 	return this->hitbox.getPosition().x < 1000;
+}
+
+void EnemyShip::TakeDamage(int dmg)
+{
+	this->hp -= dmg;
+	if (this->hp <= 0)
+	{
+		this->dead = true;
+		//std::cout << "Ship destroyed!" << std::endl;
+	}
+}
+
+bool EnemyShip::IsDead()
+{
+	return this->dead;
 }
 
 float EnemyShip::GetSpeedX()

@@ -122,10 +122,9 @@ void Spaceship::DoubleShoot(std::list<Gun*>& bullet_list)
 		bullet_list.push_back(temp_bullet_2);
 
 		shoot_cooldown = true;
-		sc_count = 3.f;
+		sc_count = 1.f;
 	}
 }
-
 
 void Spaceship::Draw(RenderWin* rm)
 {

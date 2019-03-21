@@ -10,6 +10,8 @@ SlowShip::SlowShip()
 	this->speed_y = 1.f;
 	this->width = 50.f;
 	this->height = 50.f;
+	this->hp = 50;
+	this->dead = false;
 }
 
 SlowShip::SlowShip(const SlowShip& other)
@@ -22,6 +24,8 @@ SlowShip::SlowShip(const SlowShip& other)
 	this->up_moving = true;
 	this->speed_x = other.speed_x;
 	this->speed_y = other.speed_y;
+	this->hp = other.hp;
+	this->dead = other.dead;
 }
 
 void SlowShip::SetPosition(float x, float y)

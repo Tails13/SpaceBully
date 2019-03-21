@@ -6,6 +6,7 @@ Gun_Simple::Gun_Simple(Spaceship* ms)
 	this->speed = 20.f;
 	this->width = 50.f;
 	this->height = 10.f;
+	this->damage = 10;
 	this->distruction = false;
 }
 
@@ -15,6 +16,7 @@ Gun_Simple::Gun_Simple(const Gun_Simple& other)
 	this->height = other.height;
 	this->main_ship = other.main_ship;
 	this->speed = other.speed;
+	this->damage = other.damage;
 	this->distruction = false;
 	this->CreateHitbox();
 }

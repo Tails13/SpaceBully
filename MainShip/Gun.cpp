@@ -2,7 +2,7 @@
 
 Gun::~Gun()
 {
-	std::cout << "destructor Bullet\n";
+	//std::cout << "destructor Bullet\n";
 }
 
 void Gun::Update()
@@ -26,6 +26,11 @@ bool Gun::IsOutSide()
 		return true;
 	else
 		return false;
+}
+
+int Gun::DealDamage()
+{
+	return this->damage;
 }
 
 float Gun::Width()

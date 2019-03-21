@@ -20,11 +20,16 @@ public:
 	float Height();
 	float X();
 	float Y();
+
+	void TakeDamage(int);
+	bool IsDead();
 protected:
 	float speed_x;
 	float speed_y;
 	float width;
 	float height;
+	int hp;
+	bool dead;
 private:
 	virtual void CreateHitbox() = 0;
 };

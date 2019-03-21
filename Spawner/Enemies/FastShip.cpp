@@ -10,6 +10,8 @@ FastShip::FastShip()
 	this->speed_y = 1.f;
 	this->width = 50.f;
 	this->height = 30.f;
+	this->hp = 40;
+	this->dead = false;
 }
 
 FastShip::FastShip(const FastShip& other)
@@ -22,6 +24,8 @@ FastShip::FastShip(const FastShip& other)
 	this->up_moving = true;
 	this->speed_x = other.speed_x;
 	this->speed_y = other.speed_y;
+	this->hp = other.hp;
+	this->dead = other.dead;
 }
 
 void FastShip::SetPosition(float x, float y)

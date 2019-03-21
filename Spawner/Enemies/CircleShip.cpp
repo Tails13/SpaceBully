@@ -7,6 +7,8 @@ CircleShip::CircleShip()
 	this->speed_y = 0.f;
 	this->width = 50.f;
 	this->height = 50.f;
+	this->hp = 30;
+	this->dead = false;
 }
 
 CircleShip::CircleShip(const CircleShip& other)
@@ -16,6 +18,8 @@ CircleShip::CircleShip(const CircleShip& other)
 	this->CreateHitbox();
 	this->speed_x = other.speed_x;
 	this->speed_y = other.speed_y;
+	this->hp = other.hp;
+	this->dead = other.dead;
 }
 
 void CircleShip::SetPosition(float x, float y)

@@ -54,18 +54,18 @@ void Engine::EnemiesMove()
 	{
 		for (it = enemy_list.begin(); it != enemy_list.end(); ++it)
 		{
-			if ((*it)->IsInBounds())	// Если корабль в грагицах экрана выполняем перемещение
-			{
-				(*it)->Move();
-				if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
-					rw.PutSprite(&(*it)->hitbox);  
-			}
-			else  // Или удляем корабль, если он покинул экран
+			if (!(*it)->IsInBounds() || (*it)->IsDead())	
 			{
 				EnemyShip* temp = *it;
 				it = enemy_list.erase(it);
-				delete (temp);	
+				delete (temp);
 				if (it == enemy_list.end()) break;
+			}
+			else
+			{
+				(*it)->Move();
+				if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
+					rw.PutSprite(&(*it)->hitbox);
 			}
 		}
 	}
@@ -76,7 +76,7 @@ void Engine::BulletsMove()  //Тоже самое с пулями
 	std::list<Gun*>::iterator it;
 	for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
 	{
-		if ((*it)->IsOutSide() || (*it)->distruction == true)
+		if ((*it)->IsOutSide() || (*it)->distruction)
 		{
 			Gun* temp = *it;
 			it = bullet_list.erase(it);

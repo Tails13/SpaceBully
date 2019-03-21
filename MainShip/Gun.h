@@ -10,6 +10,7 @@ public:
 	void Update();
 	sf::Shape* GetHitbox();
 	bool IsOutSide();
+	int DealDamage();
 	float Width();
 	float Height();
 	float X();
@@ -25,6 +26,7 @@ protected:
 	float speed;
 	float width;
 	float height;
+	int damage;
 };
 
 
