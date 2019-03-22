@@ -16,7 +16,8 @@ public:
 	float X();
 	float Y();
 
-	sf::ConvexShape hitbox;
+	//sf::ConvexShape hitbox;
+	sf::RectangleShape hitbox;
 	bool distruction;
 protected:
 	void Move();

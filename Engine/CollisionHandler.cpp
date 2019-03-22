@@ -19,9 +19,24 @@ bool CollisionHandler::CheckBulletsColision(Gun* bullet, EnemyShip* enemy)
 		return false;
 }
 
-bool CollisionHandler::CheckMainShipCollision(Spaceship*, EnemyShip*)
+bool CollisionHandler::CheckMainShipCollision(Spaceship* mp, EnemyShip* enemy)
 {
-	return true;
+	for (int i = 0; i < mp->hitbox.getPointCount(); i++)
+	{
+		//std::cout << "index " << i << ": x - " << mainship->hitbox.getPoint(i).x
+			//<< ", y - " << mainship->hitbox.getPoint(i).y << std::endl;
+
+		if ((mp->hitbox.getPosition().x + mp->hitbox.getPoint(i).x) >= enemy->X()
+			&& (mp->hitbox.getPosition().x + mp->hitbox.getPoint(i).x) <= enemy->X() + enemy->Width()
+			&& (mp->hitbox.getPosition().y + mp->hitbox.getPoint(i).y) >= enemy->Y()
+			&& (mp->hitbox.getPosition().y + mp->hitbox.getPoint(i).y) <= enemy->Y() + enemy->Height()
+			)
+		{
+			
+			return true;
+		}
+	}
+	return false;
 }
 
 void CollisionHandler::CheckCollisions()
@@ -39,6 +54,15 @@ void CollisionHandler::CheckCollisions()
 				(*enemy)->TakeDamage((*bullet)->DealDamage());
 				(*bullet)->distruction = true;
 			}
+		}
+	}
+
+	for (enemy = (*enemy_list).begin(); enemy != (*enemy_list).end(); enemy++)
+	{
+		if (CheckMainShipCollision(main_ship, *enemy))
+		{
+			std::cout << "Mainship Destoyed!!" << std::endl;
+						
 		}
 	}
 }

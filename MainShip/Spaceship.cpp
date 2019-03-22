@@ -6,7 +6,7 @@ Spaceship::Spaceship()
 	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
 	speed = 4.f;
 	bullet = nullptr;
-	double_shot = false;
+	double_shot = true;
 	shoot_cooldown = false;
 	sc_count = 0.f;
 	Equip(Spaceship::GunType::Simple);
@@ -21,10 +21,13 @@ void Spaceship::Update()
 
 void Spaceship::CreateHitbox()
 {
-	hitbox.setPointCount(3);
-	hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
-	hitbox.setPoint(1, sf::Vector2f(100.f, 25.f));
-	hitbox.setPoint(2, sf::Vector2f(0.f, 50.f));
+	hitbox.setPointCount(6);
+	hitbox.setPoint(0, sf::Vector2f(0.f, 25.f));
+	hitbox.setPoint(1, sf::Vector2f(0.f, 0.f));
+	hitbox.setPoint(2, sf::Vector2f(50.f, 12.5f));
+	hitbox.setPoint(3, sf::Vector2f(100.f, 25.f));
+	hitbox.setPoint(4, sf::Vector2f(50.f, 37.5f));
+	hitbox.setPoint(5, sf::Vector2f(0.f, 50.f));
 	hitbox.setFillColor(sf::Color::Blue);
 }
 

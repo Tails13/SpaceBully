@@ -28,7 +28,7 @@ void Engine::Update()
 
 	main_ship.Update();
 
-	if (!enemy_list.empty() && !bullet_list.empty())
+	if (!enemy_list.empty())
 		collision_handler.CheckCollisions();
 
 	EnemiesMove();

@@ -7,7 +7,7 @@ public:
 	enum Direction
 	{ Up, Down, Forward};
 
-	sf::ConvexShape hitbox;
+	sf::RectangleShape hitbox;
 	~EnemyShip();
 	virtual EnemyShip* Clone() const = 0;
 	virtual void Move() = 0;

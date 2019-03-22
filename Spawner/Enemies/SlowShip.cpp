@@ -86,10 +86,6 @@ SlowShip* SlowShip::Clone() const // Не забыть delete!
 
 void SlowShip::CreateHitbox()
 {
-	hitbox.setPointCount(4);
-	hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
-	hitbox.setPoint(1, sf::Vector2f(width, 0.f));
-	hitbox.setPoint(2, sf::Vector2f(width, height));
-	hitbox.setPoint(3, sf::Vector2f(0.f, height));
+	hitbox.setSize(sf::Vector2f(width, height));
 	hitbox.setFillColor(sf::Color::Red);
 }

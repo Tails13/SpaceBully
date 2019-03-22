@@ -55,11 +55,7 @@ float Gun::Y()
 
 void Gun::CreateHitbox()
 {
-	this->hitbox.setPointCount(4);
-	this->hitbox.setPoint(0, sf::Vector2f(0.f, 0.f));
-	this->hitbox.setPoint(1, sf::Vector2f(width, 0.f));
-	this->hitbox.setPoint(2, sf::Vector2f(width, height));
-	this->hitbox.setPoint(3, sf::Vector2f(0.f, height));
+	hitbox.setSize(sf::Vector2f(width, height));
 	this->hitbox.setFillColor(sf::Color::Yellow);
 
 	float x = main_ship->hitbox.getPosition().x + 65.f;
