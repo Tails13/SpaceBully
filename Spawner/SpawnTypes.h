@@ -1,5 +1,6 @@
 #pragma once
-#include "..\Engine\Header.h"
+
+#include "Enemies/EnemyShip.h"
 
 struct Point
 {

@@ -72,7 +72,7 @@ void FastShip::ChangeDirect()
 	}
 }
 
-FastShip* FastShip::Clone() const // Не забыть delete!
+FastShip* FastShip::Clone() const 
 {
 	return new FastShip(*this);
 }

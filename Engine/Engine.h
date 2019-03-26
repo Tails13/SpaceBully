@@ -1,6 +1,5 @@
 #pragma once
-#include "../MainShip/Spaceship.h"
-#include "../Spawner/EnemySpawner.h"
+
 #include "CollisionHandler.h"
 
 class Engine
@@ -13,8 +12,10 @@ public:
 
 	friend CollisionHandler;
 private:
+	void Restart();
 	void EnemiesMove();
 	void BulletsMove();
+	void BonusMove();
 	
 	RenderWin rw;
 	CollisionHandler collision_handler;
@@ -24,4 +25,5 @@ private:
 	EnemySpawner enemy_spawner_3;
 	std::list<EnemyShip*> enemy_list;
 	std::list<Gun*> bullet_list;
+	std::list<Bonus*> bonus_list;
 };

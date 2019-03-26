@@ -4,9 +4,10 @@ Spaceship::Spaceship()
 {
 	CreateHitbox();
 	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
+	dead = false;
 	speed = 4.f;
 	bullet = nullptr;
-	double_shot = true;
+	double_shot = false;
 	shoot_cooldown = false;
 	sc_count = 0.f;
 	Equip(Spaceship::GunType::Simple);

@@ -1,5 +1,5 @@
 #pragma once
-#include "Enemies/EnemyShip.h"
+
 #include "SpawnTypes.h"
 
 class EnemySpawner
@@ -14,6 +14,8 @@ public:
 
 	EnemySpawner(ShipType, std::list<EnemyShip*>*);
 	void Update();
+	void Restart();
+	void UpDelay(float);
 
 private:
 	EnemyShip* MakeShip(int x, int y) const;

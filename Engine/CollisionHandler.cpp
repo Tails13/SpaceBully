@@ -1,9 +1,11 @@
 #include "CollisionHandler.h"
 
-CollisionHandler::CollisionHandler(std::list<EnemyShip*>* enemies, std::list<Gun*>* bullets, Spaceship* mship)
+CollisionHandler::CollisionHandler(std::list<EnemyShip*>* enemies, std::list<Gun*>* bullets, 
+									std::list<Bonus*>* bonus, Spaceship* mship)
 {
 	this->enemy_list = enemies;
 	this->bullet_list = bullets;
+	this->bonus_list = bonus;
 	this->main_ship = mship;
 }
 
@@ -23,16 +25,28 @@ bool CollisionHandler::CheckMainShipCollision(Spaceship* mp, EnemyShip* enemy)
 {
 	for (int i = 0; i < mp->hitbox.getPointCount(); i++)
 	{
-		//std::cout << "index " << i << ": x - " << mainship->hitbox.getPoint(i).x
-			//<< ", y - " << mainship->hitbox.getPoint(i).y << std::endl;
-
 		if ((mp->hitbox.getPosition().x + mp->hitbox.getPoint(i).x) >= enemy->X()
 			&& (mp->hitbox.getPosition().x + mp->hitbox.getPoint(i).x) <= enemy->X() + enemy->Width()
 			&& (mp->hitbox.getPosition().y + mp->hitbox.getPoint(i).y) >= enemy->Y()
 			&& (mp->hitbox.getPosition().y + mp->hitbox.getPoint(i).y) <= enemy->Y() + enemy->Height()
 			)
 		{
-			
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CollisionHandler::CheckBonusCollision(Spaceship* mp, Bonus* bonus)
+{
+	for (int i = 0; i < mp->hitbox.getPointCount(); i++)
+	{
+		if ((mp->hitbox.getPosition().x + mp->hitbox.getPoint(i).x) >= bonus->X()
+			&& (mp->hitbox.getPosition().x + mp->hitbox.getPoint(i).x) <= bonus->X() + bonus->Width()
+			&& (mp->hitbox.getPosition().y + mp->hitbox.getPoint(i).y) >= bonus->Y()
+			&& (mp->hitbox.getPosition().y + mp->hitbox.getPoint(i).y) <= bonus->Y() + bonus->Height()
+			)
+		{
 			return true;
 		}
 	}
@@ -43,6 +57,7 @@ void CollisionHandler::CheckCollisions()
 {
 	std::list<EnemyShip*>::iterator enemy;
 	std::list<Gun*>::iterator bullet;
+	std::list<Bonus*>::iterator bonus;
 	for (bullet = (*bullet_list).begin(); bullet != (*bullet_list).end(); bullet++)
 	{
 		for (enemy = (*enemy_list).begin(); enemy != (*enemy_list).end(); enemy++)
@@ -61,8 +76,17 @@ void CollisionHandler::CheckCollisions()
 	{
 		if (CheckMainShipCollision(main_ship, *enemy))
 		{
-			std::cout << "Mainship Destoyed!!" << std::endl;
-						
+			main_ship->dead = true;
+		}
+	}
+
+	for (bonus = (*bonus_list).begin(); bonus != (*bonus_list).end(); bonus++)
+	{
+		if (CheckBonusCollision(main_ship, *bonus))
+		{
+			std::cout << "Bonus catched!!" << std::endl;
+
+			(*bonus)->distruction = true;
 		}
 	}
 }

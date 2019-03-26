@@ -2,7 +2,7 @@
 
 EnemyShip::~EnemyShip()
 {
-	//std::cout << "destructor Ship\n";
+	std::cout << "destructor Ship\n";
 }
 
 bool EnemyShip::IsInBounds()
@@ -21,7 +21,6 @@ void EnemyShip::TakeDamage(int dmg)
 	if (this->hp <= 0)
 	{
 		this->dead = true;
-		//std::cout << "Ship destroyed!" << std::endl;
 	}
 }
 

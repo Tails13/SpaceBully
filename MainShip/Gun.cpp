@@ -2,7 +2,7 @@
 
 Gun::~Gun()
 {
-	//std::cout << "destructor Bullet\n";
+	std::cout << "destructor Bullet\n";
 }
 
 void Gun::Update()

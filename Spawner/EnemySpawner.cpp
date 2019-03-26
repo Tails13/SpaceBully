@@ -41,6 +41,16 @@ void EnemySpawner::Update()
 	}
 }
 
+void EnemySpawner::Restart()
+{
+	delay = spawn_type->SetDelay();
+}
+
+void EnemySpawner::UpDelay(float x)
+{
+	delay -= x;
+}
+
 void EnemySpawner::Spawn()
 {
 	for (int i = 0; i < 10; i++)

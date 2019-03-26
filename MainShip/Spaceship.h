@@ -21,6 +21,7 @@ public:
 	void Shoot(std::list<Gun*>&);
 	void DoubleShoot(std::list<Gun*>&);
 
+	bool dead;
 private:
 	enum Direction { Up, Down, Forward, Back };
 

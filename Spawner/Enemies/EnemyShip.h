@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Engine/RenderWin.h"
+#include "../Bonus.h"
 
 class EnemyShip
 {
