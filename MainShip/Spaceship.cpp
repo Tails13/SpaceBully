@@ -65,6 +65,12 @@ void Spaceship::Move(Spaceship::Direction dir)
 		break;
 	}
 	}
+
+	if (hitbox.getPosition().x < -75 || hitbox.getPosition().x > 975
+		|| hitbox.getPosition().y < 0 || hitbox.getPosition().y > 550)
+	{
+		dead = true;
+	}
 }
 
 void Spaceship::SpeedUp(float boost)

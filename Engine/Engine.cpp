@@ -58,48 +58,39 @@ void Engine::Render()
 
 void Engine::Restart()
 {
-	main_ship.hitbox.setPosition(sf::Vector2f(0.f, 250.f));
-	main_ship.dead = false;
-
 	enemy_spawner_1.Restart();
 	enemy_spawner_2.Restart();
 	enemy_spawner_3.Restart();
 
-	if (!enemy_list.empty())
+	while (!enemy_list.empty())
 	{
 		std::list<EnemyShip*>::iterator it;
-		for (it = enemy_list.begin(); it != enemy_list.end(); ++it)
-		{
-			EnemyShip* temp = *it;
-			it = enemy_list.erase(it);
-			delete (temp);
-			if (it == enemy_list.end()) break;
-		}
+		it = enemy_list.begin();
+		EnemyShip* temp = *it;
+		it = enemy_list.erase(it);
+		delete (temp);
 	}
 
-	if (!bullet_list.empty())
+	while (!bullet_list.empty())
 	{
 		std::list<Gun*>::iterator it;
-		for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
-		{
-			Gun* temp = *it;
-			it = bullet_list.erase(it);
-			delete (temp);
-			if (it == bullet_list.end()) break;
-		}
+		it = bullet_list.begin();
+		Gun* temp = *it;
+		it = bullet_list.erase(it);
+		delete (temp);
 	}
 
-	if (!bonus_list.empty())
+	while (!bonus_list.empty())
 	{
 		std::list<Bonus*>::iterator it;
-		for (it = bonus_list.begin(); it != bonus_list.end(); ++it)
-		{
-			Bonus* temp = *it;
-			it = bonus_list.erase(it);
-			delete (temp);
-			if (it == bonus_list.end()) break;
-		}
+		it = bonus_list.begin();
+		Bonus* temp = *it;
+		it = bonus_list.erase(it);
+		delete (temp);
 	}
+
+	main_ship.hitbox.setPosition(sf::Vector2f(0.f, 250.f));
+	main_ship.dead = false;
 }
 
 void Engine::EnemiesMove()
