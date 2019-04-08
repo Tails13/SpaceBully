@@ -19,6 +19,12 @@ void Game::Update(Engine& engine)
 			main_ship.Shoot(bullet_list);
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		Restart();
+		engine.StateSwitch(0);
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	{
 		Restart();
@@ -175,10 +181,10 @@ void Game::Render(RenderWin& rw)
 		}
 	}
 
-	if (!bullet_list.empty())
+	if (!bonus_list.empty())
 	{
-		std::list<Gun*>::iterator it;
-		for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
+		std::list<Bonus*>::iterator it;
+		for (it = bonus_list.begin(); it != bonus_list.end(); ++it)
 		{
 				rw.PutSprite(&(*it)->hitbox);
 		}

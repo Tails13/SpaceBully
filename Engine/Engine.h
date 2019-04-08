@@ -12,6 +12,7 @@ public:
 	~Engine();
 	void Update();
 	void Render();
+	void StateSwitch(int);
 
 	RenderWin rw;
 
@@ -19,5 +20,6 @@ private:
 	GameState* state;
 
 	GameState* game;
-	
+	GameState* menu;
+	GameState* leader_board;
 };
