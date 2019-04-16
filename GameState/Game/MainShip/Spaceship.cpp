@@ -138,5 +138,5 @@ void Spaceship::DoubleShoot(std::list<Gun*>& bullet_list)
 
 void Spaceship::Draw(RenderWin* rm)
 {
-	rm->PutSprite(&hitbox);
+	rm->PutShape(&hitbox);
 }

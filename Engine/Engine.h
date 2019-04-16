@@ -2,6 +2,7 @@
 
 #include "RenderWin.h"
 #include "../GameState/GameState.h"
+#include "Graphics/Background.h"
 
 class GameState;
 
@@ -18,8 +19,9 @@ public:
 
 private:
 	GameState* state;
-
 	GameState* game;
 	GameState* menu;
 	GameState* leader_board;
+
+	Background background;
 };

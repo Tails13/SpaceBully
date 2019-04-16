@@ -16,6 +16,9 @@ void Engine::Update()
 			rw.window.close();
 	}
 
+	rw.PutSprite(background.GetSprite());
+	background.Update();
+
 	state->Update(*this);
 }
 
@@ -27,7 +30,7 @@ void Engine::StateSwitch(int i)
 
 void Engine::Render()
 {
-	if (!rw.RenderListIsEmpty())
+	if (!rw.SpriteListIsEmpty() || !rw.ShapeListIsEmpty())
 		rw.Render();
 }
 

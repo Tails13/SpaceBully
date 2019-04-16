@@ -168,7 +168,7 @@ void Game::Render(RenderWin& rw)
 		for (it = enemy_list.begin(); it != enemy_list.end(); ++it)
 		{
 				if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
-					rw.PutSprite(&(*it)->hitbox);
+					rw.PutShape(&(*it)->hitbox);
 		}
 	}
 
@@ -177,7 +177,7 @@ void Game::Render(RenderWin& rw)
 		std::list<Gun*>::iterator it;
 		for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
 		{
-				rw.PutSprite(&(*it)->hitbox);
+				rw.PutShape(&(*it)->hitbox);
 		}
 	}
 
@@ -186,7 +186,7 @@ void Game::Render(RenderWin& rw)
 		std::list<Bonus*>::iterator it;
 		for (it = bonus_list.begin(); it != bonus_list.end(); ++it)
 		{
-				rw.PutSprite(&(*it)->hitbox);
+				rw.PutShape(&(*it)->hitbox);
 		}
 	}
 }
