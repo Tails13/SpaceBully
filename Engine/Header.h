@@ -9,6 +9,7 @@
 #include <iterator>
 #include <list>
 #include <iostream>
+#include <cmath>
 
 #include <Windows.h>
 //#include <sysinfoapi.h>

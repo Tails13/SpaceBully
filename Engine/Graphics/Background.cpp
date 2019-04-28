@@ -2,22 +2,31 @@
 
 Background::Background()
 {
-	//sf::Texture texture;
 	texture.loadFromFile("Graphics/StarrySky.png");
 	sprite.setTexture(texture);
+	velocity.x = -5.f;
 	MakeLoop();
-}
-
-sf::Sprite* Background::GetSprite()
-{
-	return &sprite;
 }
 
 void Background::Update()
 {
-	sprite.move(sf::Vector2f(-5.f, 0.f));
+	sprite.move(velocity);
 	if (sprite.getPosition().x <= -1000)
 		MakeLoop();
+
+	CollectRenderData();
+}
+
+void Background::CollectRenderData()
+{
+	render_data.position = sprite.getPosition();
+	render_data.velocity = this->velocity;
+	render_data.sprite_for_drawing = &sprite;
+}
+
+RenderData Background::GetRenderData()
+{
+	return render_data;
 }
 
 void Background::MakeLoop()

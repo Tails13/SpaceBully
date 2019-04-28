@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "RenderData.h"
 
 class Background
 {
@@ -8,10 +8,13 @@ public:
 	Background();
 
 	void Update();
-	sf::Sprite* GetSprite();
+	RenderData GetRenderData();
 private:
 	void MakeLoop();
+	void CollectRenderData();
 
 	sf::Texture texture;
 	sf::Sprite sprite;
+	sf::Vector2f velocity;
+	RenderData render_data;
 };

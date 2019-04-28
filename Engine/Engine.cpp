@@ -16,9 +16,9 @@ void Engine::Update()
 			rw.window.close();
 	}
 
-	rw.PutSprite(background.GetSprite());
 	background.Update();
-
+	rw.RecordRenderData(background.GetRenderData());
+	
 	state->Update(*this);
 }
 
@@ -28,10 +28,10 @@ void Engine::StateSwitch(int i)
 	else if (i == 1) state = game;
 }
 
-void Engine::Render()
+void Engine::Render(float interpolation)
 {
-	if (!rw.SpriteListIsEmpty() || !rw.ShapeListIsEmpty())
-		rw.Render();
+	if (!rw.RenderListIsEmpty() || !rw.ShapeListIsEmpty())
+		rw.Render(interpolation);
 }
 
 Engine::~Engine()

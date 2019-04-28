@@ -12,7 +12,7 @@ public:
 	Engine();
 	~Engine();
 	void Update();
-	void Render();
+	void Render(float);
 	void StateSwitch(int);
 
 	RenderWin rw;

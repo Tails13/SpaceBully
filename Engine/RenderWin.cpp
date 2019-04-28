@@ -3,15 +3,29 @@
 RenderWin::RenderWin() 
 {
 	window.create(sf::VideoMode(1000, 600), "Space Bully");
+	window.setVerticalSyncEnabled(true);
 }
 
-void RenderWin::Render()
+void RenderWin::Render(float interpolation)
 {
 	window.clear();
-	while (!sprite_list.empty()) 
+	while (!render_list.empty()) 
 	{
-		window.draw(*sprite_list.front());
-		sprite_list.pop_front(); 
+		
+		RenderData temp = render_list.front();
+
+		sf::Vector2f render_position;
+		render_position.x = temp.position.x + (temp.velocity.x * interpolation);
+		render_position.y = temp.position.y + (temp.velocity.y * interpolation);
+
+		temp.sprite_for_drawing->setPosition(render_position);
+
+		
+		
+
+		window.draw(*temp.sprite_for_drawing);
+		render_list.pop_front();
+		
 	} 
 	while (!shape_list.empty())
 	{
@@ -21,9 +35,9 @@ void RenderWin::Render()
 	window.display();
 }
 
-void RenderWin::PutSprite(sf::Sprite* sprite)
+void RenderWin::RecordRenderData(RenderData render_data)
 {
-	sprite_list.push_back(sprite);
+	render_list.push_back(render_data);
 }
 
 void RenderWin::PutShape(sf::Shape* shape)
@@ -31,9 +45,9 @@ void RenderWin::PutShape(sf::Shape* shape)
 	shape_list.push_back(shape);
 }
 
-bool RenderWin::SpriteListIsEmpty()
+bool RenderWin::RenderListIsEmpty()
 {
-	return sprite_list.empty();
+	return render_list.empty();
 }
 
 bool RenderWin::ShapeListIsEmpty()
