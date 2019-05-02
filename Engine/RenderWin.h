@@ -13,6 +13,8 @@ public:
 
 	bool ShapeListIsEmpty();
 	bool RenderListIsEmpty();
+	void ShapeListClear();
+	void RenderListClear();
 
 	sf::RenderWindow window;
 private:

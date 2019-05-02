@@ -12,7 +12,9 @@ int main()
 
 	float previous = clock.getElapsedTime().asMicroseconds();
 	float lag = 0.0f;
-	const int MS_PER_UPDATE = 25000;
+	const int MS_PER_UPDATE = 15000;
+
+	//int count = 0;
 
 	while (!bIsDone)
 	{
@@ -25,43 +27,14 @@ int main()
 		{
 			engine.Update();
 			lag -= MS_PER_UPDATE;
+			//count++;
 		}
 		
+		//std::cout << count << "  ";
+		//count = 0;
+
 		engine.Render(lag / MS_PER_UPDATE);
 	}
-
-
-	/*
-	const int TICK_PER_SECOND = 60;
-	const int SKIP_TICKS = 1000 / TICK_PER_SECOND;
-	const int MAX_FRAMESKIP = 5;
-
-	DWORD next_game_tick = GetTickCount64();
-	int loops;
-	float interpolation;
-
-	while (!bIsDone)
-	{
-		loops = 0;
-
-		while (GetTickCount64() > next_game_tick && loops < MAX_FRAMESKIP)
-		{
-			engine.Update();
-
-			next_game_tick += SKIP_TICKS;
-			loops++;
-			//std::cout << next_game_tick << std::endl;
-
-			
-			interpolation = float(GetTickCount64() + SKIP_TICKS - next_game_tick) / float(SKIP_TICKS);
-			if (interpolation < 1.f)
-				engine.Render(interpolation); // Передать параметром interpolation
-		}
-
-	
-	}
-	*/
-
 	
 	return 0;
 }

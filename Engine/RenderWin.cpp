@@ -20,9 +20,6 @@ void RenderWin::Render(float interpolation)
 
 		temp.sprite_for_drawing->setPosition(render_position);
 
-		
-		
-
 		window.draw(*temp.sprite_for_drawing);
 		render_list.pop_front();
 		
@@ -30,6 +27,7 @@ void RenderWin::Render(float interpolation)
 	while (!shape_list.empty())
 	{
 		window.draw(*shape_list.front());
+
 		shape_list.pop_front();
 	}
 	window.display();
@@ -53,4 +51,14 @@ bool RenderWin::RenderListIsEmpty()
 bool RenderWin::ShapeListIsEmpty()
 {
 	return shape_list.empty();
+}
+
+void RenderWin::RenderListClear()
+{
+	render_list.clear();
+}
+
+void RenderWin::ShapeListClear()
+{
+	shape_list.clear();
 }

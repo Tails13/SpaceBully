@@ -4,8 +4,12 @@ Spaceship::Spaceship()
 {
 	CreateHitbox();
 	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
+
+	texture.loadFromFile("Graphics/MS_test.png");
+	sprite.setTexture(texture);
+
 	dead = false;
-	speed = 4.f;
+	speed = 2.5f;
 	bullet = nullptr;
 	double_shot = false;
 	shoot_cooldown = false;
@@ -15,9 +19,25 @@ Spaceship::Spaceship()
 
 void Spaceship::Update()
 {
+	velocity.x = 0;
+	velocity.y = 0;
+
 	this->Control();
+	CollectRenderData();
 
 	if (shoot_cooldown == true) this->Cooldown();
+}
+
+void Spaceship::CollectRenderData()
+{
+	render_data.position = hitbox.getPosition();
+	render_data.velocity = this->velocity;
+	render_data.sprite_for_drawing = &sprite;
+}
+
+RenderData Spaceship::GetRenderData()
+{
+	return this->render_data;
 }
 
 void Spaceship::CreateHitbox()
@@ -46,22 +66,26 @@ void Spaceship::Move(Spaceship::Direction dir)
 	{
 	case Up:
 	{
-		this->hitbox.move(sf::Vector2f(0.f, -speed));
+		velocity.y -= speed;
+		this->hitbox.move(sf::Vector2f(0.f, velocity.y));
 		break; 
 	}
 	case Down:
 	{
-		this->hitbox.move(sf::Vector2f(0.f, speed));
+		velocity.y += speed;
+		this->hitbox.move(sf::Vector2f(0.f, velocity.y));
 		break;
 	}
 	case Forward:
 	{
-		this->hitbox.move(sf::Vector2f(speed, 0.f));
+		velocity.x += speed;
+		this->hitbox.move(sf::Vector2f(velocity.x, 0.f));
 		break;
 	}
 	case Back:
 	{
-		this->hitbox.move(sf::Vector2f(-speed, 0.f));
+		velocity.x -= speed;
+		this->hitbox.move(sf::Vector2f(velocity.x, 0.f));
 		break;
 	}
 	}
@@ -134,9 +158,4 @@ void Spaceship::DoubleShoot(std::list<Gun*>& bullet_list)
 		shoot_cooldown = true;
 		sc_count = 1.f;
 	}
-}
-
-void Spaceship::Draw(RenderWin* rm)
-{
-	rm->PutShape(&hitbox);
 }

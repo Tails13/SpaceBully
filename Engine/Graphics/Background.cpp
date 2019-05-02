@@ -4,7 +4,7 @@ Background::Background()
 {
 	texture.loadFromFile("Graphics/StarrySky.png");
 	sprite.setTexture(texture);
-	velocity.x = -5.f;
+	velocity.x = -2.5f;
 	MakeLoop();
 }
 

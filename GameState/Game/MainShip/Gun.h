@@ -15,19 +15,24 @@ public:
 	float Height();
 	float X();
 	float Y();
+	virtual RenderData GetRenderData() = 0;
 
-	//sf::ConvexShape hitbox;
 	sf::RectangleShape hitbox;
 	bool distruction;
 protected:
 	void Move();
 	void CreateHitbox();
+	void CollectRenderData();	
 
 	const Spaceship* main_ship;
-	float speed;
 	float width;
 	float height;
 	int damage;
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+	sf::Vector2f velocity;
+	RenderData render_data;
 };
 
 
@@ -37,6 +42,7 @@ public:
 	Gun_Simple(Spaceship*);
 	Gun_Simple(const Gun_Simple&);
 	virtual Gun* Clone() override;
+	RenderData GetRenderData() override;
 };
 
 class Gun_Laser : public Gun
@@ -45,4 +51,5 @@ public:
 	Gun_Laser(Spaceship*);
 	Gun_Laser(const Gun_Laser&);
 	virtual Gun* Clone() override;
+	RenderData GetRenderData() override;
 };

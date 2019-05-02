@@ -16,10 +16,15 @@ void Engine::Update()
 			rw.window.close();
 	}
 
+	rw.RenderListClear();
+	rw.ShapeListClear();
+
 	background.Update();
 	rw.RecordRenderData(background.GetRenderData());
-	
+
 	state->Update(*this);
+
+	
 }
 
 void Engine::StateSwitch(int i)

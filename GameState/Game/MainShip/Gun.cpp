@@ -8,6 +8,7 @@ Gun::~Gun()
 void Gun::Update()
 {
 	this->Move();
+	this->CollectRenderData();
 }
 
 sf::Shape* Gun::GetHitbox()
@@ -17,7 +18,7 @@ sf::Shape* Gun::GetHitbox()
 
 void Gun::Move()
 {
-	this->hitbox.move(sf::Vector2f(this->speed, 0.f));
+	this->hitbox.move(sf::Vector2f(velocity.x, velocity.y));
 }
 
 bool Gun::IsOutSide()
@@ -62,4 +63,11 @@ void Gun::CreateHitbox()
 	float y = main_ship->hitbox.getPosition().y + 20.f;
 
 	hitbox.setPosition(sf::Vector2f(this->X() + x, this->Y() + y));
+}
+
+void Gun::CollectRenderData()
+{
+	render_data.position = hitbox.getPosition();
+	render_data.velocity = velocity;
+	render_data.sprite_for_drawing = &sprite;
 }

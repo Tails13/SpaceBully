@@ -47,7 +47,7 @@ void Game::Update(Engine& engine)
 	enemy_spawner_2.Update();
 	enemy_spawner_3.Update();
 
-	main_ship.Draw(&engine.rw);
+	engine.rw.RecordRenderData(main_ship.GetRenderData());
 }
 
 void Game::Restart()
@@ -123,6 +123,7 @@ void Game::BulletsMove()  //Тоже самое с пулями
 		std::list<Gun*>::iterator it;
 		for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
 		{
+				
 			if ((*it)->IsOutSide() || (*it)->distruction)
 			{
 				Gun* temp = *it;
@@ -134,6 +135,7 @@ void Game::BulletsMove()  //Тоже самое с пулями
 			{
 				(*it)->Update();
 			}
+			(*it)->Update();
 		}
 	}
 }
@@ -175,9 +177,9 @@ void Game::Render(RenderWin& rw)
 	if (!bullet_list.empty())
 	{
 		std::list<Gun*>::iterator it;
-		for (it = bullet_list.begin(); it != bullet_list.end(); ++it)
+		for (it = bullet_list.begin(); it != bullet_list.end(); it++)
 		{
-				rw.PutShape(&(*it)->hitbox);
+			rw.RecordRenderData((*it)->GetRenderData());
 		}
 	}
 
