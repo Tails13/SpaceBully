@@ -169,8 +169,10 @@ void Game::Render(RenderWin& rw)
 		std::list<EnemyShip*>::iterator it;
 		for (it = enemy_list.begin(); it != enemy_list.end(); ++it)
 		{
-				if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
-					rw.PutShape(&(*it)->hitbox);
+			if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
+				rw.RecordRenderData((*it)->GetRenderData());
+					//rw.PutShape(&(*it)->hitbox);
+					
 		}
 	}
 

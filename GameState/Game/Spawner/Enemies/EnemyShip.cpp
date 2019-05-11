@@ -29,16 +29,6 @@ bool EnemyShip::IsDead()
 	return this->dead;
 }
 
-float EnemyShip::GetSpeedX()
-{
-	return this->speed_x;
-}
-
-float EnemyShip::GetSpeedY()
-{
-	return this->speed_y;
-}
-
 float EnemyShip::Width()
 {
 	return this->width;
@@ -57,4 +47,9 @@ float EnemyShip::X()
 float EnemyShip::Y()
 {
 	return this->hitbox.getPosition().y;
+}
+
+RenderData EnemyShip::GetRenderData()
+{
+	return this->render_data;
 }

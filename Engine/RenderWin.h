@@ -1,6 +1,6 @@
 #pragma once
 #include "Header.h"
-#include "Graphics/RenderData.h"
+#include "Graphics/AnimationManager.h"
 
 class RenderWin
 {

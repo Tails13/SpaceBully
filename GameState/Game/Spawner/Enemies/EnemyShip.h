@@ -14,22 +14,22 @@ public:
 	virtual void SetPosition(float x, float y) = 0;
 	bool IsInBounds();  // Вышел ли корабль за пределы экрана.
 	bool IsShow();	// Появился ли корабль на экране.
-	float GetSpeedX();
-	float GetSpeedY();
 	float Width();
 	float Height();
 	float X();
 	float Y();
+	RenderData GetRenderData();
 
 	void TakeDamage(int);
 	bool IsDead();
 protected:
-	float speed_x;
-	float speed_y;
 	float width;
 	float height;
 	int hp;
 	bool dead;
+
+	sf::Vector2f velocity;
+	RenderData render_data;
 private:
 	virtual void CreateHitbox() = 0;
 };
@@ -50,6 +50,11 @@ private:
 	float swing_y;		// Колебания движения вверх-вниз
 	Direction direction_y;
 	bool up_moving;
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+	void CollectRenderData();
+	AnimationManager animator_manager;
 };
 
 
@@ -68,6 +73,11 @@ private:
 	float swing_y;
 	Direction direction_y;
 	bool up_moving;
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+	void CollectRenderData();
+	AnimationManager animator_manager;
 };
 
 
@@ -79,6 +89,12 @@ public:
 	void Move();
 	void SetPosition(float x, float y);
 	CircleShip* Clone() const override;
+
 private:
 	void CreateHitbox() override;
+
+	sf::Texture texture;
+	sf::Sprite sprite;
+	void CollectRenderData();
+	AnimationManager animator_manager;
 };

@@ -2,12 +2,11 @@
 
 SlowShip::SlowShip()
 {
-	CreateHitbox();
 	swing_y = 0.f;
 	direction_y = Down;
 	up_moving = true;
-	this->speed_x = 3.f;
-	this->speed_y = 1.f;
+	this->velocity.x = 3.f;
+	this->velocity.y = 1.f;
 	this->width = 50.f;
 	this->height = 50.f;
 	this->hp = 50;
@@ -16,16 +15,23 @@ SlowShip::SlowShip()
 
 SlowShip::SlowShip(const SlowShip& other)
 {
+	texture.loadFromFile("Graphics/Enemy_Slow_test.png");
+	sprite.setTexture(texture);
+
 	this->width = other.width;
 	this->height = other.height;
 	this->CreateHitbox();
 	this->swing_y = other.swing_y;
 	this->direction_y = Down;
 	this->up_moving = true;
-	this->speed_x = other.speed_x;
-	this->speed_y = other.speed_y;
+	this->velocity = other.velocity;
 	this->hp = other.hp;
 	this->dead = other.dead;
+	this->render_data = other.render_data;
+
+	animator_manager.SetAM(&sprite, width, height);
+	animator_manager.SetNumberAnimation(0);
+	animator_manager.ShowFrame(1);
 }
 
 void SlowShip::SetPosition(float x, float y)
@@ -35,12 +41,12 @@ void SlowShip::SetPosition(float x, float y)
 
 void SlowShip::Move()
 {
-	float new_x = this->hitbox.getPosition().x - speed_x;
+	float new_x = this->hitbox.getPosition().x - velocity.x;
 	float new_y = this->hitbox.getPosition().y;
 
 	if (this->IsShow())
 	{
-		swing_y += speed_y;
+		swing_y += velocity.y;
 		if (swing_y >= 50.f)
 		{
 			ChangeDirect();
@@ -49,15 +55,16 @@ void SlowShip::Move()
 
 		if (direction_y == Up)
 		{
-			new_y = this->hitbox.getPosition().y - speed_y;
+			new_y = this->hitbox.getPosition().y - velocity.y;
 		}
 		else if (direction_y == Down)
 		{
-			new_y = this->hitbox.getPosition().y + speed_y;
+			new_y = this->hitbox.getPosition().y + velocity.y;
 		}
 	}
 	
 	SetPosition(new_x, new_y);
+	CollectRenderData();
 }
 
 void SlowShip::ChangeDirect()
@@ -65,17 +72,27 @@ void SlowShip::ChangeDirect()
 	if (direction_y == Up)
 	{
 		direction_y = Forward;
+		animator_manager.ShowFrame(1);
 		up_moving = true;
 	}
 	else if (direction_y == Down)
 	{
 		direction_y = Forward;
+		animator_manager.ShowFrame(1);
 		up_moving = false;
 	}
 	else if (direction_y == Forward)
 	{
-		if (up_moving) direction_y = Down;
-		else direction_y = Up;
+		if (up_moving)
+		{
+			direction_y = Down;
+			animator_manager.ShowFrame(2);
+		}
+		else
+		{
+			direction_y = Up;
+			animator_manager.ShowFrame(0);
+		}
 	}
 }
 
@@ -88,4 +105,11 @@ void SlowShip::CreateHitbox()
 {
 	hitbox.setSize(sf::Vector2f(width, height));
 	hitbox.setFillColor(sf::Color::Red);
+}
+
+void SlowShip::CollectRenderData()
+{
+	render_data.position = hitbox.getPosition();
+	render_data.velocity = velocity;
+	render_data.sprite_for_drawing = &sprite;
 }

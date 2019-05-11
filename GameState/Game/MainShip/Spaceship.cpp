@@ -5,7 +5,7 @@ Spaceship::Spaceship()
 	CreateHitbox();
 	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
 
-	texture.loadFromFile("Graphics/MS_test.png");
+	texture.loadFromFile("Graphics/MainShip.png");
 	sprite.setTexture(texture);
 
 	dead = false;

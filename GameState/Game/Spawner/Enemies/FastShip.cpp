@@ -2,12 +2,11 @@
 
 FastShip::FastShip()
 {
-	CreateHitbox();
 	swing_y = 0.f;
 	direction_y = Down;
 	up_moving = true;
-	this->speed_x = 6.f;
-	this->speed_y = 1.f;
+	this->velocity.x = 6.f;
+	this->velocity.y = 1.f;
 	this->width = 50.f;
 	this->height = 30.f;
 	this->hp = 40;
@@ -16,16 +15,24 @@ FastShip::FastShip()
 
 FastShip::FastShip(const FastShip& other)
 {
+	texture.loadFromFile("Graphics/Enemy_Fast_test.png");
+	sprite.setTexture(texture);
+
 	this->width = other.width;
 	this->height = other.height;
 	CreateHitbox();
 	this->swing_y = other.swing_y;
 	this->direction_y = Down;
 	this->up_moving = true;
-	this->speed_x = other.speed_x;
-	this->speed_y = other.speed_y;
+	this->velocity = other.velocity;
 	this->hp = other.hp;
 	this->dead = other.dead;
+	this->render_data = other.render_data;
+
+	animator_manager.SetAM(&sprite, width, height);
+	animator_manager.SetNumberAnimation(0);
+	animator_manager.SetNumberFrame(0);
+	animator_manager.SetLastFrame(4);
 }
 
 void FastShip::SetPosition(float x, float y)
@@ -35,12 +42,12 @@ void FastShip::SetPosition(float x, float y)
 
 void FastShip::Move()
 {
-	float new_x = this->hitbox.getPosition().x - speed_x;
+	float new_x = this->hitbox.getPosition().x - velocity.x;
 	float new_y = this->hitbox.getPosition().y;
 
 	if (this->IsShow())
 	{
-		swing_y += speed_y;
+		swing_y += velocity.y;
 		if (swing_y >= 50.f)
 		{
 			ChangeDirect();
@@ -49,15 +56,17 @@ void FastShip::Move()
 
 		if (direction_y == Up)
 		{
-			new_y = this->hitbox.getPosition().y - speed_y;
+			new_y = this->hitbox.getPosition().y - velocity.y;
 		}
 		else if (direction_y == Down)
 		{
-			new_y = this->hitbox.getPosition().y + speed_y;
+			new_y = this->hitbox.getPosition().y + velocity.y;
 		}
 	}
 
 	SetPosition(new_x, new_y);
+	CollectRenderData();
+	animator_manager.PlayAnimation();
 }
 
 void FastShip::ChangeDirect()
@@ -81,4 +90,11 @@ void FastShip::CreateHitbox()
 {
 	hitbox.setSize(sf::Vector2f(width, height));
 	hitbox.setFillColor(sf::Color::Green);
+}
+
+void FastShip::CollectRenderData()
+{
+	render_data.position = hitbox.getPosition();
+	render_data.velocity = velocity;
+	render_data.sprite_for_drawing = &sprite;
 }
