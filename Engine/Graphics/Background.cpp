@@ -14,9 +14,10 @@ void Background::Update()
 	if (sprite.getPosition().x <= -1000)
 		MakeLoop();
 
-	CollectRenderData();
+	CollectRenderData();  // Èçìåíåíèå â áëèæàéøèõ ïàò÷àõ!
 }
 
+// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
 void Background::CollectRenderData()
 {
 	render_data.position = sprite.getPosition();
@@ -24,6 +25,7 @@ void Background::CollectRenderData()
 	render_data.sprite_for_drawing = &sprite;
 }
 
+// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
 RenderData Background::GetRenderData()
 {
 	return render_data;

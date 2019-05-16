@@ -27,7 +27,7 @@ SlowShip::SlowShip(const SlowShip& other)
 	this->velocity = other.velocity;
 	this->hp = other.hp;
 	this->dead = other.dead;
-	this->render_data = other.render_data;
+	this->render_data = other.render_data;	// Изменение в ближайших патчах!
 
 	animator_manager.SetAM(&sprite, width, height);
 	animator_manager.SetNumberAnimation(0);
@@ -64,9 +64,10 @@ void SlowShip::Move()
 	}
 	
 	SetPosition(new_x, new_y);
-	CollectRenderData();
+	CollectRenderData();	// Изменение в ближайших патчах!
 }
 
+// Изменение вертикального направления
 void SlowShip::ChangeDirect()
 {
 	if (direction_y == Up)
@@ -107,6 +108,7 @@ void SlowShip::CreateHitbox()
 	hitbox.setFillColor(sf::Color::Red);
 }
 
+// ДУБЛИКАТ КОДА!
 void SlowShip::CollectRenderData()
 {
 	render_data.position = hitbox.getPosition();

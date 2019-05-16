@@ -21,7 +21,7 @@ CircleShip::CircleShip(const CircleShip& other)
 	this->velocity = other.velocity;
 	this->hp = other.hp;
 	this->dead = other.dead;
-	this->render_data = other.render_data;
+	this->render_data = other.render_data; // Изменение в ближайших патчах!
 
 	animator_manager.SetAM(&sprite, width, height);
 	animator_manager.SetNumberAnimation(0);
@@ -39,7 +39,7 @@ void CircleShip::Move()
 	float new_x = this->hitbox.getPosition().x - velocity.x;
 	float new_y = this->hitbox.getPosition().y;
 	SetPosition(new_x, new_y);
-	CollectRenderData();
+	CollectRenderData();	// Изменение в ближайших патчах!
 	animator_manager.PlayAnimation();
 }
 
@@ -54,6 +54,7 @@ void CircleShip::CreateHitbox()
 	hitbox.setFillColor(sf::Color::Blue);
 }
 
+// ДУБЛИКАТ КОДА!
 void CircleShip::CollectRenderData()
 {
 	render_data.position = hitbox.getPosition();

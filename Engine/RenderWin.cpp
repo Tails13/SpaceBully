@@ -9,9 +9,11 @@ RenderWin::RenderWin()
 void RenderWin::Render(float interpolation)
 {
 	window.clear();
+
+	// ÷икл перебирает все элементы рендер_листа и отрисовывает 
+	// спрайты в позиции, расчитанной с учетом интерпол€ции.
 	while (!render_list.empty()) 
 	{
-		
 		RenderData temp = render_list.front();
 
 		sf::Vector2f render_position;
@@ -22,14 +24,15 @@ void RenderWin::Render(float interpolation)
 
 		window.draw(*temp.sprite_for_drawing);
 		render_list.pop_front();
-		
 	} 
+
 	while (!shape_list.empty())
 	{
 		window.draw(*shape_list.front());
 
 		shape_list.pop_front();
 	}
+
 	window.display();
 }
 

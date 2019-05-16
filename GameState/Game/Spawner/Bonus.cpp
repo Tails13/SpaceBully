@@ -30,6 +30,8 @@ bool Bonus::IsInBounds()
 	return !(hitbox.getPosition().x <= -25);
 }
 
+// Следующие функции нужны для расчета коллизий
+//==================
 float Bonus::Width()
 {
 	return width;
@@ -49,6 +51,7 @@ float Bonus::Y()
 {
 	return hitbox.getPosition().y;
 }
+//==================
 
 void Bonus::CreateHitbox()
 {

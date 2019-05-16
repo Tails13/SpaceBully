@@ -31,8 +31,7 @@ Gun* Gun_Simple::Clone()
 	return new Gun_Simple(*this);
 }
 
-
-
+// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
 RenderData Gun_Simple::GetRenderData()
 {
 	return this->render_data;

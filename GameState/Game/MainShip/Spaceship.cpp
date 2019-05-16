@@ -23,11 +23,12 @@ void Spaceship::Update()
 	velocity.y = 0;
 
 	this->Control();
-	CollectRenderData();
+	CollectRenderData(); // Изменение в ближайших патчах!
 
-	if (shoot_cooldown == true) this->Cooldown();
+	if (shoot_cooldown == true) this->Cooldown();  
 }
 
+// ДУБЛИКАТ КОДА!
 void Spaceship::CollectRenderData()
 {
 	render_data.position = hitbox.getPosition();
@@ -35,6 +36,7 @@ void Spaceship::CollectRenderData()
 	render_data.sprite_for_drawing = &sprite;
 }
 
+// ДУБЛИКАТ КОДА!
 RenderData Spaceship::GetRenderData()
 {
 	return this->render_data;
@@ -59,6 +61,7 @@ void Spaceship::Control()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) this->Move(Spaceship::Direction::Down);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) this->Move(Spaceship::Direction::Forward);
 }
+
 
 void Spaceship::Move(Spaceship::Direction dir)
 {
@@ -90,6 +93,8 @@ void Spaceship::Move(Spaceship::Direction dir)
 	}
 	}
 
+	// Проверка, находится ли игрок в пределах экрана. 
+	// Столкновение срабатывает уже при частичном выходе из игровой области.
 	if (hitbox.getPosition().x < -75 || hitbox.getPosition().x > 975
 		|| hitbox.getPosition().y < 0 || hitbox.getPosition().y > 550)
 	{
@@ -116,6 +121,8 @@ void Spaceship::Equip(Spaceship::GunType gt)
 	}
 }
 
+// Выяснить где используются следующие функции
+//=========================
 Spaceship::GunType Spaceship::GetGunType()
 {
 	return gun_type;
@@ -125,7 +132,9 @@ bool Spaceship::HasDoubleGun()
 {
 	return double_shot;
 }
+//=========================
 
+// Кулдаун выстрела
 void Spaceship::Cooldown()
 {
 	sc_count -= 0.1f;

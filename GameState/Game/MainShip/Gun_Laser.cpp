@@ -26,6 +26,7 @@ Gun* Gun_Laser::Clone()
 	return new Gun_Laser(*this);
 }
 
+// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
 RenderData Gun_Laser::GetRenderData()
 {
 	return this->render_data;

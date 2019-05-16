@@ -27,6 +27,8 @@ void Engine::Update()
 	
 }
 
+// Смена сосотояний игры (меню, игра и тд)
+// Желательно изменить принемаемый аргумент с инта на enum. @@@
 void Engine::StateSwitch(int i)
 {
 	if (i == 0) state = menu;

@@ -7,7 +7,7 @@ float SpawnFast::SetDelay()
 
 void SpawnFast::SetSpawnPositions()
 {
-	int count = rand() % 9; 
+	int count = rand() % 9; // Генерация кол-ва кораблей в текущем паке
 	for (int i = 0; i < 10; i++)
 	{
 		if (i < count)

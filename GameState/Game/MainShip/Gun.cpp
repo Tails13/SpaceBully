@@ -8,7 +8,7 @@ Gun::~Gun()
 void Gun::Update()
 {
 	this->Move();
-	this->CollectRenderData();
+	this->CollectRenderData();  // Изменение в ближайших патчах!
 }
 
 sf::Shape* Gun::GetHitbox()
@@ -21,6 +21,7 @@ void Gun::Move()
 	this->hitbox.move(sf::Vector2f(velocity.x, velocity.y));
 }
 
+// Проверка, находится ли пуля в пределах экрана
 bool Gun::IsOutSide()
 {
 	if (this->hitbox.getPosition().x > 1000.f)
@@ -34,6 +35,8 @@ int Gun::DealDamage()
 	return this->damage;
 }
 
+// Следующие функции используются для расчета коллизий
+//==================
 float Gun::Width()
 {
 	return this->width;
@@ -53,6 +56,8 @@ float Gun::Y()
 {
 	return this->hitbox.getPosition().y;
 }
+//==================
+
 
 void Gun::CreateHitbox()
 {
@@ -65,6 +70,7 @@ void Gun::CreateHitbox()
 	hitbox.setPosition(sf::Vector2f(this->X() + x, this->Y() + y));
 }
 
+// ДУБЛИКАТ КОДА!
 void Gun::CollectRenderData()
 {
 	render_data.position = hitbox.getPosition();

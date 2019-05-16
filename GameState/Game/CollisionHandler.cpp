@@ -1,5 +1,6 @@
 #include "CollisionHandler.h"
 
+// Принимает параметром все списки с объектами для которых нужно расчитать коллизию.
 CollisionHandler::CollisionHandler(std::list<EnemyShip*>* enemies, std::list<Gun*>* bullets, 
 									std::list<Bonus*>* bonus, Spaceship* mship)
 {
@@ -9,6 +10,7 @@ CollisionHandler::CollisionHandler(std::list<EnemyShip*>* enemies, std::list<Gun
 	this->main_ship = mship;
 }
 
+// Расчет коллизий пули с вражеским кораблём.
 bool CollisionHandler::CheckBulletsColision(Gun* bullet, EnemyShip* enemy)
 {
 	if (bullet->X() + bullet->Width() >= enemy->X()
@@ -21,6 +23,7 @@ bool CollisionHandler::CheckBulletsColision(Gun* bullet, EnemyShip* enemy)
 		return false;
 }
 
+// Расчет коллизий игрока с вражеским кораблём.
 bool CollisionHandler::CheckMainShipCollision(Spaceship* mp, EnemyShip* enemy)
 {
 	for (int i = 0; i < mp->hitbox.getPointCount(); i++)
@@ -37,6 +40,7 @@ bool CollisionHandler::CheckMainShipCollision(Spaceship* mp, EnemyShip* enemy)
 	return false;
 }
 
+// Расчет коллизий игрока с бонусом.
 bool CollisionHandler::CheckBonusCollision(Spaceship* mp, Bonus* bonus)
 {
 	for (int i = 0; i < mp->hitbox.getPointCount(); i++)
@@ -53,6 +57,9 @@ bool CollisionHandler::CheckBonusCollision(Spaceship* mp, Bonus* bonus)
 	return false;
 }
 
+// Основная проверка. Перебирает все элементы списков и
+// выполняет соответствующую логику, если с помощью
+// вышеописанных функций обнаружено столкновение.
 void CollisionHandler::CheckCollisions()
 {
 	std::list<EnemyShip*>::iterator enemy;

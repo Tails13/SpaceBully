@@ -1,3 +1,6 @@
+// Состояние Игра.
+// Именно в этом состоянии описан и происходит весь игровой процесс.
+
 #include "../GameState.h"
 
 Game::Game() :
@@ -11,6 +14,7 @@ Game::Game() :
 
 void Game::Update(Engine& engine)
 {
+	// Стрельба
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{
 		if (main_ship.HasDoubleGun())
@@ -19,12 +23,14 @@ void Game::Update(Engine& engine)
 			main_ship.Shoot(bullet_list);
 	}
 
+	// Возврат к главному меню игры.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		Restart();
 		engine.StateSwitch(0);
 	}
 
+	// Рестарт игрового состояния.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	{
 		Restart();
@@ -32,9 +38,12 @@ void Game::Update(Engine& engine)
 
 	main_ship.Update();
 
+	// Проверка коллизий.
 	if (!enemy_list.empty())
 		collision_handler.CheckCollisions();
 
+	// Проверка, не умер ли ГГ.
+	// В следующих патчах рестарт должен срабатывать по окончании анимации смерти главного корабля
 	if (main_ship.dead)
 		Restart();
 
@@ -87,6 +96,7 @@ void Game::Restart()
 	main_ship.dead = false;
 }
 
+// Проверяются состояния врагов. Находятся ли они на экране, живы ли и тд.
 void Game::EnemiesMove()
 {
 	if (!enemy_list.empty())
@@ -116,7 +126,8 @@ void Game::EnemiesMove()
 	}
 }
 
-void Game::BulletsMove()  //Тоже самое с пулями 
+//Тоже самое с пулями 
+void Game::BulletsMove()  
 {
 	if (!bullet_list.empty())
 	{
@@ -140,6 +151,7 @@ void Game::BulletsMove()  //Тоже самое с пулями
 	}
 }
 
+//Тоже самое с бонусами
 void Game::BonusMove()
 {
 	if (!bonus_list.empty())
@@ -162,6 +174,7 @@ void Game::BonusMove()
 	}
 }
 
+// Передача всех, имеющихся в списках, объектов для рендера.
 void Game::Render(RenderWin& rw)
 {
 	if (!enemy_list.empty())
