@@ -2,36 +2,17 @@
 
 Background::Background()
 {
-	texture.loadFromFile("Graphics/StarrySky.png");
-	sprite.setTexture(texture);
+	render_component = new RenderComponent("Graphics/StarrySky.png");
 	velocity.x = -2.5f;
-	MakeLoop();
+	render_component->CollectRenderData(velocity, sf::Vector2f(0.f, 0.f));
 }
 
 void Background::Update()
 {
-	sprite.move(velocity);
-	if (sprite.getPosition().x <= -1000)
-		MakeLoop();
+	render_component->GetRenderData().sprite_for_drawing->move(velocity);
+	
+	if (render_component->GetRenderData().sprite_for_drawing->getPosition().x <= -1000)
+		render_component->GetRenderData().sprite_for_drawing->setPosition(sf::Vector2f(0.f, 0.f));
 
-	CollectRenderData();  // Èçìåíåíèå â áëèæàéøèõ ïàò÷àõ!
-}
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-void Background::CollectRenderData()
-{
-	render_data.position = sprite.getPosition();
-	render_data.velocity = this->velocity;
-	render_data.sprite_for_drawing = &sprite;
-}
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-RenderData Background::GetRenderData()
-{
-	return render_data;
-}
-
-void Background::MakeLoop()
-{
-	sprite.setPosition(sf::Vector2f(0.f, 0.f));
+	render_component->CollectRenderData(velocity, render_component->GetRenderData().sprite_for_drawing->getPosition());
 }

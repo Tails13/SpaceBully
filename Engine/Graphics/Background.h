@@ -1,20 +1,14 @@
 #pragma once
 
-#include "RenderData.h"
+#include "RenderComponent.h"
 
 class Background
 {
 public:
 	Background();
-
 	void Update();
-	RenderData GetRenderData();
-private:
-	void MakeLoop();
-	void CollectRenderData();
 
-	sf::Texture texture;
-	sf::Sprite sprite;
+	RenderComponent* render_component;
+private:
 	sf::Vector2f velocity;
-	RenderData render_data;
 };

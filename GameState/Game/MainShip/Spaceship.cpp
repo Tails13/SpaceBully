@@ -5,8 +5,7 @@ Spaceship::Spaceship()
 	CreateHitbox();
 	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
 
-	texture.loadFromFile("Graphics/MainShip.png");
-	sprite.setTexture(texture);
+	render_component = new RenderComponent("Graphics/MainShip.png");
 
 	dead = false;
 	speed = 2.5f;
@@ -23,23 +22,10 @@ void Spaceship::Update()
 	velocity.y = 0;
 
 	this->Control();
-	CollectRenderData(); // Èçìåíåíèå â áëèæàéøèõ ïàò÷àõ!
+
+	render_component->CollectRenderData(velocity, hitbox.getPosition());
 
 	if (shoot_cooldown == true) this->Cooldown();  
-}
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-void Spaceship::CollectRenderData()
-{
-	render_data.position = hitbox.getPosition();
-	render_data.velocity = this->velocity;
-	render_data.sprite_for_drawing = &sprite;
-}
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-RenderData Spaceship::GetRenderData()
-{
-	return this->render_data;
 }
 
 void Spaceship::CreateHitbox()

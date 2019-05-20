@@ -18,7 +18,8 @@ public:
 	float Height();
 	float X();
 	float Y();
-	RenderData GetRenderData();
+	
+	RenderComponent* render_component;
 
 	void TakeDamage(int);
 	bool IsDead();
@@ -29,7 +30,6 @@ protected:
 	bool dead;
 
 	sf::Vector2f velocity;
-	RenderData render_data;
 private:
 	virtual void CreateHitbox() = 0;
 };
@@ -51,12 +51,8 @@ private:
 	Direction direction_y;
 	bool up_moving;
 
-	sf::Texture texture;
-	sf::Sprite sprite;
-	void CollectRenderData();
 	AnimationManager animator_manager;
 };
-
 
 class SlowShip : public EnemyShip
 {
@@ -74,9 +70,6 @@ private:
 	Direction direction_y;
 	bool up_moving;
 
-	sf::Texture texture;
-	sf::Sprite sprite;
-	void CollectRenderData();
 	AnimationManager animator_manager;
 };
 
@@ -93,8 +86,5 @@ public:
 private:
 	void CreateHitbox() override;
 
-	sf::Texture texture;
-	sf::Sprite sprite;
-	void CollectRenderData();
 	AnimationManager animator_manager;
 };

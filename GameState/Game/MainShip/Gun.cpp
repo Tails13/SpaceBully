@@ -3,12 +3,13 @@
 Gun::~Gun()
 {
 	//std::cout << "destructor Bullet\n";
+	delete render_component;
 }
 
 void Gun::Update()
 {
 	this->Move();
-	this->CollectRenderData();  // Изменение в ближайших патчах!
+	render_component->CollectRenderData(velocity, hitbox.getPosition());
 }
 
 sf::Shape* Gun::GetHitbox()
@@ -68,12 +69,4 @@ void Gun::CreateHitbox()
 	float y = main_ship->hitbox.getPosition().y + 20.f;
 
 	hitbox.setPosition(sf::Vector2f(this->X() + x, this->Y() + y));
-}
-
-// ДУБЛИКАТ КОДА!
-void Gun::CollectRenderData()
-{
-	render_data.position = hitbox.getPosition();
-	render_data.velocity = velocity;
-	render_data.sprite_for_drawing = &sprite;
 }

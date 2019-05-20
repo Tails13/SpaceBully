@@ -12,8 +12,7 @@ Gun_Simple::Gun_Simple(Spaceship* ms)
 
 Gun_Simple::Gun_Simple(const Gun_Simple& other)
 {
-	texture.loadFromFile("Graphics/SimpleShoot.png");
-	sprite.setTexture(texture);
+	render_component = new RenderComponent("Graphics/SimpleShoot.png");
 
 	this->width = other.width;
 	this->height = other.height;
@@ -22,17 +21,10 @@ Gun_Simple::Gun_Simple(const Gun_Simple& other)
 	this->damage = other.damage;
 	this->distruction = false;
 
-	this->render_data = other.render_data;
 	this->CreateHitbox();
 }
 
 Gun* Gun_Simple::Clone()
 {
 	return new Gun_Simple(*this);
-}
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-RenderData Gun_Simple::GetRenderData()
-{
-	return this->render_data;
 }

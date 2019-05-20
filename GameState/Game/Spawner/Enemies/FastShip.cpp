@@ -15,8 +15,7 @@ FastShip::FastShip()
 
 FastShip::FastShip(const FastShip& other)
 {
-	texture.loadFromFile("Graphics/Enemy_Fast_test.png");
-	sprite.setTexture(texture);
+	render_component = new RenderComponent("Graphics/Enemy_Fast.png");
 
 	this->width = other.width;
 	this->height = other.height;
@@ -27,9 +26,10 @@ FastShip::FastShip(const FastShip& other)
 	this->velocity = other.velocity;
 	this->hp = other.hp;
 	this->dead = other.dead;
-	this->render_data = other.render_data; // Изменение в ближайших патчах!
 
-	animator_manager.SetAM(&sprite, width, height);
+	render_component->CollectRenderData(velocity, hitbox.getPosition());
+
+	animator_manager.SetAM(render_component->GetRenderData().sprite_for_drawing, width, height);
 	animator_manager.SetNumberAnimation(0);
 	animator_manager.SetNumberFrame(0);
 	animator_manager.SetLastFrame(4);
@@ -65,7 +65,7 @@ void FastShip::Move()
 	}
 
 	SetPosition(new_x, new_y);
-	CollectRenderData(); // Изменение в ближайших патчах!
+	render_component->CollectRenderData(velocity, hitbox.getPosition());
 	animator_manager.PlayAnimation();
 }
 
@@ -92,12 +92,4 @@ void FastShip::CreateHitbox()
 {
 	hitbox.setSize(sf::Vector2f(width, height));
 	hitbox.setFillColor(sf::Color::Green);
-}
-
-// ДУБЛИКАТ КОДА!
-void FastShip::CollectRenderData()
-{
-	render_data.position = hitbox.getPosition();
-	render_data.velocity = velocity;
-	render_data.sprite_for_drawing = &sprite;
 }

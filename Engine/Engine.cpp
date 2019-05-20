@@ -20,7 +20,7 @@ void Engine::Update()
 	rw.ShapeListClear();
 
 	background.Update();
-	rw.RecordRenderData(background.GetRenderData());
+	rw.RecordRenderData(background.render_component->GetRenderData());
 
 	state->Update(*this);
 

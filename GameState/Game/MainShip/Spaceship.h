@@ -11,7 +11,8 @@ public:
 
 	Spaceship(); 
 	sf::ConvexShape hitbox;
-	RenderData GetRenderData();
+	RenderComponent* render_component;
+
 	void Update();
 
 	void SpeedUp(float);
@@ -23,9 +24,8 @@ public:
 	void DoubleShoot(std::list<Gun*>&);
 
 	bool dead;
-private:
-	void CollectRenderData();
 
+private:
 	enum Direction { Up, Down, Forward, Back };
 
 	void Control();
@@ -40,10 +40,8 @@ private:
 	bool shoot_cooldown;
 	float sc_count;
 
-	sf::Texture texture;
-	sf::Sprite sprite;
 	sf::Vector2f velocity;
-	RenderData render_data;
+
 };
 
 

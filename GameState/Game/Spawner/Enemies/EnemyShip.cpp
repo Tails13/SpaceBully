@@ -3,6 +3,7 @@
 EnemyShip::~EnemyShip()
 {
 	std::cout << "destructor Ship\n";
+	delete render_component;
 }
 
 // Ïğîâåğêà, ÷òî êîğàáëü ïîêèíóë ıêğàí.
@@ -53,9 +54,3 @@ float EnemyShip::Y()
 	return this->hitbox.getPosition().y;
 }
 //==================
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-RenderData EnemyShip::GetRenderData()
-{
-	return this->render_data;
-}

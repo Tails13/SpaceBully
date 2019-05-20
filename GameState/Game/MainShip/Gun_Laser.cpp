@@ -12,22 +12,19 @@ Gun_Laser::Gun_Laser(Spaceship* ms)
 
 Gun_Laser::Gun_Laser(const Gun_Laser& other)
 {
+	render_component = new RenderComponent("none");
+
 	this->width = other.width;
 	this->height = other.height;
 	this->main_ship = other.main_ship;
 	this->velocity = other.velocity;
 	this->damage = other.damage;
 	this->distruction = false;
+
 	this->CreateHitbox();
 }
 
 Gun* Gun_Laser::Clone()
 {
 	return new Gun_Laser(*this);
-}
-
-// ÄÓÁËÈÊÀÒ ÊÎÄÀ!
-RenderData Gun_Laser::GetRenderData()
-{
-	return this->render_data;
 }

@@ -56,7 +56,7 @@ void Game::Update(Engine& engine)
 	enemy_spawner_2.Update();
 	enemy_spawner_3.Update();
 
-	engine.rw.RecordRenderData(main_ship.GetRenderData());
+	engine.rw.RecordRenderData(main_ship.render_component->GetRenderData());
 }
 
 void Game::Restart()
@@ -183,7 +183,7 @@ void Game::Render(RenderWin& rw)
 		for (it = enemy_list.begin(); it != enemy_list.end(); ++it)
 		{
 			if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
-				rw.RecordRenderData((*it)->GetRenderData());
+				rw.RecordRenderData((*it)->render_component->GetRenderData());
 					//rw.PutShape(&(*it)->hitbox);
 					
 		}
@@ -194,7 +194,7 @@ void Game::Render(RenderWin& rw)
 		std::list<Gun*>::iterator it;
 		for (it = bullet_list.begin(); it != bullet_list.end(); it++)
 		{
-			rw.RecordRenderData((*it)->GetRenderData());
+			rw.RecordRenderData((*it)->render_component->GetRenderData());
 		}
 	}
 
