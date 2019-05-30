@@ -15,6 +15,7 @@ public:
 
 	static Bonus* Create(float x, float y);
 
+	RenderComponent* render_component;
 	sf::RectangleShape hitbox;
 	bool distruction;
 	
@@ -25,5 +26,6 @@ private:
 
 	float width;
 	float height;
+	sf::Vector2f velocity;
 };
 

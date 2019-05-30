@@ -2,7 +2,7 @@
 
 EnemyShip::~EnemyShip()
 {
-	std::cout << "destructor Ship\n";
+	//std::cout << "destructor Ship\n";
 	delete render_component;
 }
 

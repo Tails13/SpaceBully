@@ -20,6 +20,8 @@ public:
 	void Equip(GunType);
 	GunType GetGunType();
 	bool HasDoubleGun();
+	void DoubleShootActived();
+	void DoubleShootDeactived();
 	void Shoot(std::list<Gun*>&);
 	void DoubleShoot(std::list<Gun*>&);
 

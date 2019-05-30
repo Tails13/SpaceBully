@@ -2,6 +2,7 @@
 
 #include "../Engine/Engine.h"
 #include "Game/CollisionHandler.h"
+#include "Game/GameStuff.h"
 
 class Engine;
 
@@ -38,6 +39,8 @@ private:
 	std::list<EnemyShip*> enemy_list;
 	std::list<Gun*> bullet_list;
 	std::list<Bonus*> bonus_list;
+
+	GameStuff game_stuff;
 };
 
 class Menu : public GameState

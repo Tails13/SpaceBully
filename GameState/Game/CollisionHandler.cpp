@@ -91,7 +91,7 @@ void CollisionHandler::CheckCollisions()
 	{
 		if (CheckBonusCollision(main_ship, *bonus))
 		{
-			std::cout << "Bonus catched!!" << std::endl;
+			//std::cout << "Bonus catched!!" << std::endl;
 
 			(*bonus)->distruction = true;
 		}

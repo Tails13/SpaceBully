@@ -118,6 +118,16 @@ bool Spaceship::HasDoubleGun()
 {
 	return double_shot;
 }
+
+void Spaceship::DoubleShootActived()
+{
+	double_shot = true;
+}
+
+void Spaceship::DoubleShootDeactived()
+{
+	double_shot = false;
+}
 //=========================
 
 // Кулдаун выстрела

@@ -36,6 +36,30 @@ void Game::Update(Engine& engine)
 		Restart();
 	}
 
+	// Активация бонусов.
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		if (game_stuff.ActiveBonus() != GameStuff::BonusType::Disabled)
+		{
+			if (game_stuff.ActiveBonus() == GameStuff::BonusType::Speed)
+			{
+				main_ship.SpeedUp(0.5f);
+			}
+			else if (game_stuff.ActiveBonus() == GameStuff::BonusType::Double)
+			{
+				main_ship.DoubleShootActived();
+			}
+			else if (game_stuff.ActiveBonus() == GameStuff::BonusType::Laser)
+			{
+				main_ship.DoubleShootDeactived();
+				main_ship.Equip(Spaceship::GunType::Laser);
+			}
+
+			game_stuff.ClearBonus();
+		}
+
+	}
+
 	main_ship.Update();
 
 	// Проверка коллизий.
@@ -111,6 +135,10 @@ void Game::EnemiesMove()
 					int r = rand() % 10;
 					if (r <= 1)
 						bonus_list.push_back(Bonus::Create((*it)->X() + 15, (*it)->Y() + 15));
+
+					game_stuff.AddScore(50);
+					// @@@@@
+					//std::cout << game_stuff.Score() << std::endl;
 				}
 
 				EnemyShip * temp = *it;
@@ -161,6 +189,13 @@ void Game::BonusMove()
 		{
 			if (!(*it)->IsInBounds() || (*it)->distruction)
 			{
+				if ((*it)->distruction)
+				{
+					game_stuff.AddBonus();
+					game_stuff.AddScore(500);
+					//std::cout << game_stuff.Score() << std::endl;
+				}
+
 				Bonus* temp = *it;
 				it = bonus_list.erase(it);
 				delete (temp);
@@ -184,8 +219,6 @@ void Game::Render(RenderWin& rw)
 		{
 			if ((*it)->IsShow())		// Передаем корабли в RenderWin для отрисовки
 				rw.RecordRenderData((*it)->render_component->GetRenderData());
-					//rw.PutShape(&(*it)->hitbox);
-					
 		}
 	}
 
@@ -203,7 +236,7 @@ void Game::Render(RenderWin& rw)
 		std::list<Bonus*>::iterator it;
 		for (it = bonus_list.begin(); it != bonus_list.end(); ++it)
 		{
-				rw.PutShape(&(*it)->hitbox);
+			rw.RecordRenderData((*it)->render_component->GetRenderData());
 		}
 	}
 }

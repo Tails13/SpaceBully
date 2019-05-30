@@ -4,13 +4,15 @@ Bonus::Bonus()
 {
 	width = 20;
 	height = 20;
-	CreateHitbox();
+	velocity = sf::Vector2f(-8.f, 0.f);
 	distruction = false;
+	CreateHitbox();
+	render_component = new RenderComponent("Graphics/Bonus.png");
 }
 
 Bonus::~Bonus()
 {
-	std::cout << "Bonus destructor!!" << std::endl;
+	delete render_component;
 }
 
 Bonus* Bonus::Create(float x, float y)
@@ -22,7 +24,8 @@ Bonus* Bonus::Create(float x, float y)
 
 void Bonus::Update()
 {
-	hitbox.move(sf::Vector2f(-8.f, 0.f));
+	hitbox.move(velocity);
+	render_component->CollectRenderData(velocity, hitbox.getPosition());
 }
 
 bool Bonus::IsInBounds()
