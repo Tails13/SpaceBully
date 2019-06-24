@@ -19,10 +19,12 @@ public:
 	void ClearBonus();
 	void ClearScore();
 	int Score();
+	int CurrentBonus();
 	BonusType ActiveBonus();
 
 private:
 	int score;
 	int bonus_count;
+	int current_bonus;
 	BonusType active_bonus;
 };

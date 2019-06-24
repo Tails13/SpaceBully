@@ -3,6 +3,7 @@
 #include "../Engine/Engine.h"
 #include "Game/CollisionHandler.h"
 #include "Game/GameStuff.h"
+#include "Game/GUI.h"
 
 class Engine;
 
@@ -41,6 +42,7 @@ private:
 	std::list<Bonus*> bonus_list;
 
 	GameStuff game_stuff;
+	GUI gui;
 };
 
 class Menu : public GameState

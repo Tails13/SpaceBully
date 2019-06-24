@@ -61,6 +61,7 @@ void Game::Update(Engine& engine)
 	}
 
 	main_ship.Update();
+	gui.Update(game_stuff.CurrentBonus());
 
 	// Проверка коллизий.
 	if (!enemy_list.empty())
@@ -74,13 +75,13 @@ void Game::Update(Engine& engine)
 	EnemiesMove();
 	BulletsMove();
 	BonusMove();
+
+	engine.rw.RecordRenderData(main_ship.render_component->GetRenderData());
 	Render(engine.rw);
 
 	enemy_spawner_1.Update();
 	enemy_spawner_2.Update();
 	enemy_spawner_3.Update();
-
-	engine.rw.RecordRenderData(main_ship.render_component->GetRenderData());
 }
 
 void Game::Restart()
@@ -212,6 +213,7 @@ void Game::BonusMove()
 // Передача всех, имеющихся в списках, объектов для рендера.
 void Game::Render(RenderWin& rw)
 {
+
 	if (!enemy_list.empty())
 	{
 		std::list<EnemyShip*>::iterator it;
@@ -239,6 +241,11 @@ void Game::Render(RenderWin& rw)
 			rw.RecordRenderData((*it)->render_component->GetRenderData());
 		}
 	}
+
+	rw.RecordRenderData(gui.layer1->GetRenderData());
+	rw.RecordRenderData(gui.layer2->GetRenderData());
+	rw.RecordRenderData(gui.layer3->GetRenderData());
+	rw.RecordRenderData(gui.score->GetRenderData());
 }
 
 Game::~Game()
