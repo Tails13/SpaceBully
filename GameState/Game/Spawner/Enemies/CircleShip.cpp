@@ -12,7 +12,7 @@ CircleShip::CircleShip()
 
 CircleShip::CircleShip(const CircleShip& other)
 {
-	render_component = new RenderComponent("Graphics/Enemy_Circle.png");
+	render_component = new RenderComponent("Resources/Graphics/Enemy_Circle.png");
 
 	this->width = other.width;
 	this->height = other.height;

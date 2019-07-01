@@ -4,7 +4,7 @@ GameStuff::GameStuff()
 {
 	score = 0;
 	bonus_count = 0;
-	current_bonus = 4;
+	current_bonus = 0;
 	active_bonus = BonusType::Disabled;
 }
 

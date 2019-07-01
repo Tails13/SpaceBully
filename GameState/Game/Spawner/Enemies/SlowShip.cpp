@@ -15,7 +15,7 @@ SlowShip::SlowShip()
 
 SlowShip::SlowShip(const SlowShip& other)
 {
-	render_component = new RenderComponent("Graphics/Enemy_Slow.png");
+	render_component = new RenderComponent("Resources/Graphics/Enemy_Slow.png");
 
 	this->width = other.width;
 	this->height = other.height;

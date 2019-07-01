@@ -7,7 +7,7 @@ Bonus::Bonus()
 	velocity = sf::Vector2f(-8.f, 0.f);
 	distruction = false;
 	CreateHitbox();
-	render_component = new RenderComponent("Graphics/Bonus.png");
+	render_component = new RenderComponent("Resources/Graphics/Bonus.png");
 }
 
 Bonus::~Bonus()

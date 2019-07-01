@@ -62,6 +62,7 @@ void Game::Update(Engine& engine)
 
 	main_ship.Update();
 	gui.Update(game_stuff.CurrentBonus());
+	gui.RecordScore(game_stuff.Score());
 
 	// Проверка коллизий.
 	if (!enemy_list.empty())
@@ -193,7 +194,7 @@ void Game::BonusMove()
 				if ((*it)->distruction)
 				{
 					game_stuff.AddBonus();
-					game_stuff.AddScore(500);
+					game_stuff.AddScore(200);
 					//std::cout << game_stuff.Score() << std::endl;
 				}
 
@@ -245,7 +246,7 @@ void Game::Render(RenderWin& rw)
 	rw.RecordRenderData(gui.layer1->GetRenderData());
 	rw.RecordRenderData(gui.layer2->GetRenderData());
 	rw.RecordRenderData(gui.layer3->GetRenderData());
-	rw.RecordRenderData(gui.score->GetRenderData());
+	rw.RenderText(&gui.txt_score);
 }
 
 Game::~Game()

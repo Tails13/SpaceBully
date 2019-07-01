@@ -2,7 +2,7 @@
 
 Background::Background()
 {
-	render_component = new RenderComponent("Graphics/StarrySky.png");
+	render_component = new RenderComponent("Resources/Graphics/StarrySky.png");
 	velocity.x = -2.5f;
 	render_component->CollectRenderData(velocity, sf::Vector2f(0.f, 0.f));
 }

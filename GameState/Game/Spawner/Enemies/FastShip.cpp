@@ -15,7 +15,7 @@ FastShip::FastShip()
 
 FastShip::FastShip(const FastShip& other)
 {
-	render_component = new RenderComponent("Graphics/Enemy_Fast.png");
+	render_component = new RenderComponent("Resources/Graphics/Enemy_Fast.png");
 
 	this->width = other.width;
 	this->height = other.height;

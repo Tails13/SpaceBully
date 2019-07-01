@@ -5,7 +5,7 @@ Spaceship::Spaceship()
 	CreateHitbox();
 	hitbox.setPosition(sf::Vector2f(0.f, 250.f));
 
-	render_component = new RenderComponent("Graphics/MainShip.png");
+	render_component = new RenderComponent("Resources/Graphics/MainShip.png");
 
 	dead = false;
 	speed = 2.5f;
