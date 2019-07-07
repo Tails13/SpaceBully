@@ -1,4 +1,5 @@
 #include "Spaceship.h"
+#include "../../../Engine/AudioSystem/AudioSystem.h"
 
 Spaceship::Spaceship() 
 {
@@ -146,6 +147,8 @@ void Spaceship::Shoot(std::list<Gun*>& bullet_list)
 
 		shoot_cooldown = true;
 		sc_count = 1.f;
+
+		AudioSystem::Instance().Play_Sound("Shoot.ogg");
 	}
 }
 
@@ -162,5 +165,7 @@ void Spaceship::DoubleShoot(std::list<Gun*>& bullet_list)
 
 		shoot_cooldown = true;
 		sc_count = 1.f;
+
+		AudioSystem::Instance().Play_Sound("Shoot.ogg");
 	}
 }

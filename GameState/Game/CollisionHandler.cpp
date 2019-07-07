@@ -1,4 +1,5 @@
 #include "CollisionHandler.h"
+#include "../../Engine/AudioSystem/AudioSystem.h"
 
 // Принимает параметром все списки с объектами для которых нужно расчитать коллизию.
 CollisionHandler::CollisionHandler(std::list<EnemyShip*>* enemies, std::list<Gun*>* bullets, 
@@ -72,7 +73,7 @@ void CollisionHandler::CheckCollisions()
 			if (CheckBulletsColision(*bullet, *enemy))
 			{
 				//std::cout << "Damage deal!!" << std::endl;
-
+				AudioSystem::Instance().Play_Sound("Hit.ogg");
 				(*enemy)->TakeDamage((*bullet)->DealDamage());
 				(*bullet)->distruction = true;
 			}

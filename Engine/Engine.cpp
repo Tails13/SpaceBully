@@ -5,6 +5,7 @@ Engine::Engine()
 	this->game = new Game;
 	this->menu = new Menu;
 	state = menu;
+	AudioSystem::Instance().PlayMusic("Main_theme.ogg"); //******
 }
 
 void Engine::Update()
@@ -31,8 +32,18 @@ void Engine::Update()
 // Желательно изменить принемаемый аргумент с инта на enum. @@@
 void Engine::StateSwitch(int i)
 {
-	if (i == 0) state = menu;
-	else if (i == 1) state = game;
+	if (i == 0)
+	{
+		state = menu;
+		AudioSystem::Instance().StopMusic();
+		AudioSystem::Instance().PlayMusic("Main_theme.ogg"); //******
+	}
+	else if (i == 1)
+	{
+		state = game;
+		AudioSystem::Instance().StopMusic();
+		AudioSystem::Instance().PlayMusic("Game_theme.ogg"); //**********
+	}
 }
 
 void Engine::Render(float interpolation)

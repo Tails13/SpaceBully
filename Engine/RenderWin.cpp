@@ -35,8 +35,11 @@ void RenderWin::Render(float interpolation)
 		shape_list.pop_front();
 	}
 
-	if(txt_score != nullptr)
+	if (txt_score != nullptr)
+	{
 		window.draw(*txt_score);
+		txt_score->setString("");
+	}
 
 	window.display();
 }
