@@ -19,6 +19,7 @@ void Engine::Update()
 
 	rw.RenderListClear();
 	rw.ShapeListClear();
+	AudioSystem::Instance().CleanPlayList();
 
 	background.Update();
 	rw.RecordRenderData(background.render_component->GetRenderData());

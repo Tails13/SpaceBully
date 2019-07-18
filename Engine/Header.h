@@ -11,6 +11,7 @@
 #include <list>
 #include <iostream>
 #include <cmath>
+#include <string>
 
 #include <Windows.h>
 //#include <sysinfoapi.h>
