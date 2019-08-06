@@ -14,15 +14,6 @@ Game::Game() :
 
 void Game::Update(Engine& engine)
 {
-	// Стрельба
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
-	{
-		if (main_ship.HasDoubleGun())
-			main_ship.DoubleShoot(bullet_list);
-		else
-			main_ship.Shoot(bullet_list);
-	}
-
 	// Возврат к главному меню игры.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
@@ -36,28 +27,39 @@ void Game::Update(Engine& engine)
 		Restart();
 	}
 
-	// Активация бонусов.
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (!main_ship.death.DeathEventActive())
 	{
-		if (game_stuff.ActiveBonus() != GameStuff::BonusType::Disabled)
+		// Стрельба
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 		{
-			if (game_stuff.ActiveBonus() == GameStuff::BonusType::Speed)
-			{
-				main_ship.SpeedUp(0.5f);
-			}
-			else if (game_stuff.ActiveBonus() == GameStuff::BonusType::Double)
-			{
-				main_ship.DoubleShootActived();
-			}
-			else if (game_stuff.ActiveBonus() == GameStuff::BonusType::Laser)
-			{
-				main_ship.DoubleShootDeactived();
-				main_ship.Equip(Spaceship::GunType::Laser);
-			}
-
-			game_stuff.ClearBonus();
+			if (main_ship.HasDoubleGun())
+				main_ship.DoubleShoot(bullet_list);
+			else
+				main_ship.Shoot(bullet_list);
 		}
 
+		// Активация бонусов.
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			if (game_stuff.ActiveBonus() != GameStuff::BonusType::Disabled)
+			{
+				if (game_stuff.ActiveBonus() == GameStuff::BonusType::Speed)
+				{
+					main_ship.SpeedUp(0.5f);
+				}
+				else if (game_stuff.ActiveBonus() == GameStuff::BonusType::Double)
+				{
+					main_ship.DoubleShootActived();
+				}
+				else if (game_stuff.ActiveBonus() == GameStuff::BonusType::Laser)
+				{
+					main_ship.DoubleShootDeactived();
+					main_ship.Equip(Spaceship::GunType::Laser);
+				}
+
+				game_stuff.ClearBonus();
+			}
+		}
 	}
 
 	main_ship.Update();
@@ -67,11 +69,6 @@ void Game::Update(Engine& engine)
 	// Проверка коллизий.
 	if (!enemy_list.empty())
 		collision_handler.CheckCollisions();
-
-	// Проверка, не умер ли ГГ.
-	// В следующих патчах рестарт должен срабатывать по окончании анимации смерти главного корабля
-	if (main_ship.dead)
-		Restart();
 
 	EnemiesMove();
 	BulletsMove();
@@ -119,7 +116,7 @@ void Game::Restart()
 	}
 
 	main_ship.hitbox.setPosition(sf::Vector2f(0.f, 250.f));
-	main_ship.dead = false;
+	main_ship.DeathEventStop();
 }
 
 // Проверяются состояния врагов. Находятся ли они на экране, живы ли и тд.

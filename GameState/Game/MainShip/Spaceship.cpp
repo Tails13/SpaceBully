@@ -8,7 +8,6 @@ Spaceship::Spaceship()
 
 	render_component = new RenderComponent("Resources/Graphics/MainShip.png");
 
-	dead = false;
 	speed = 2.5f;
 	bullet = nullptr;
 	double_shot = false;
@@ -19,11 +18,17 @@ Spaceship::Spaceship()
 
 void Spaceship::Update()
 {
-	velocity.x = 0;
-	velocity.y = 0;
-
-	this->Control();
-
+	if (!this->death.DeathEventActive())
+	{
+		velocity.x = 0;
+		velocity.y = 0;
+		this->Control();
+	}
+	else
+	{
+		Fall();
+	}
+		
 	render_component->CollectRenderData(velocity, hitbox.getPosition());
 
 	if (shoot_cooldown == true) this->Cooldown();  
@@ -41,12 +46,34 @@ void Spaceship::CreateHitbox()
 	hitbox.setFillColor(sf::Color::Blue);
 }
 
+void Spaceship::DeathEventStart()
+{
+	this->render_component->sprite.setRotation(50.f);
+	death.Set(1);
+}
+
+void Spaceship::DeathEventStop()
+{
+	this->render_component->sprite.setRotation(0.f);
+	death.Set(0);
+}
+
 void Spaceship::Control()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) this->Move(Spaceship::Direction::Up);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) this->Move(Spaceship::Direction::Back);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) this->Move(Spaceship::Direction::Down);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) this->Move(Spaceship::Direction::Forward);
+}
+
+void Spaceship::Fall()
+{
+	if (this->hitbox.getPosition().y < 700)
+	{
+		velocity.y = 4.5f;
+		this->hitbox.move(sf::Vector2f(velocity.x, velocity.y));
+		std::cout << this->hitbox.getPosition().y << std::endl;
+	}
 }
 
 
@@ -85,7 +112,7 @@ void Spaceship::Move(Spaceship::Direction dir)
 	if (hitbox.getPosition().x < -75 || hitbox.getPosition().x > 975
 		|| hitbox.getPosition().y < 0 || hitbox.getPosition().y > 550)
 	{
-		dead = true;
+		this->DeathEventStart();
 	}
 }
 

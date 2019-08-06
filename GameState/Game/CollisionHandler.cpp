@@ -84,7 +84,7 @@ void CollisionHandler::CheckCollisions()
 	{
 		if (CheckMainShipCollision(main_ship, *enemy))
 		{
-			main_ship->dead = true;
+			main_ship->DeathEventStart();
 		}
 	}
 

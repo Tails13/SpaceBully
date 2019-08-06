@@ -1,6 +1,7 @@
 #pragma once
 #include "../../../Engine/RenderWin.h"
 #include "Gun.h"
+#include "DeathEvent.h"
 
 class Gun;
 
@@ -12,8 +13,11 @@ public:
 	Spaceship(); 
 	sf::ConvexShape hitbox;
 	RenderComponent* render_component;
+	DeathEvent death;
 
 	void Update();
+	void DeathEventStart();
+	void DeathEventStop();
 
 	void SpeedUp(float);
 
@@ -25,12 +29,11 @@ public:
 	void Shoot(std::list<Gun*>&);
 	void DoubleShoot(std::list<Gun*>&);
 
-	bool dead;
-
 private:
 	enum Direction { Up, Down, Forward, Back };
 
 	void Control();
+	void Fall();
 	void Move(Direction);
 	void CreateHitbox();
 	void Cooldown();
