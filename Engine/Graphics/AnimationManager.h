@@ -9,6 +9,8 @@ public:
 	void SetNumberAnimation(int);
 	void SetNumberFrame(int);
 	void SetLastFrame(int);
+	void SetLoop(bool);
+	void Restart();
 	void PlayAnimation();
 	void ShowFrame(int);
 
@@ -21,4 +23,6 @@ private:
 	int number_frame;
 	int number_animation;	
 	float speed_animation;
+	bool end;
+	bool loop;
 };

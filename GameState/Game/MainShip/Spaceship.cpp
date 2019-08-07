@@ -26,6 +26,7 @@ void Spaceship::Update()
 	}
 	else
 	{
+		death.PlayBangAnimation();
 		Fall();
 	}
 		
@@ -48,12 +49,16 @@ void Spaceship::CreateHitbox()
 
 void Spaceship::DeathEventStart()
 {
+	if (!death.DeathEventActive())
+		death.SetBangPosition(hitbox.getPosition());
+
 	this->render_component->sprite.setRotation(50.f);
 	death.Set(1);
 }
 
 void Spaceship::DeathEventStop()
 {
+	death.anim_bang.Restart();
 	this->render_component->sprite.setRotation(0.f);
 	death.Set(0);
 }
@@ -70,6 +75,9 @@ void Spaceship::Fall()
 {
 	if (this->hitbox.getPosition().y < 700)
 	{
+		death.SetPosition(hitbox.getPosition());
+		death.PlaySmokeAnimation();
+
 		velocity.y = 4.5f;
 		this->hitbox.move(sf::Vector2f(velocity.x, velocity.y));
 		std::cout << this->hitbox.getPosition().y << std::endl;

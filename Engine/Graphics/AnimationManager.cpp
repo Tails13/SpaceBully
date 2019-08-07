@@ -11,6 +11,8 @@ AnimationManager::AnimationManager()
 	this->number_animation = 0;
 	this->number_frame = 0;
 	this->speed_animation = 0.1f; 
+	this->end = false;
+	this->loop = true;
 }
 
 // Основные необходимые для анимации установки
@@ -39,14 +41,33 @@ void AnimationManager::SetLastFrame(int n)
 	this->end_frame = n;
 }
 
+void AnimationManager::SetLoop(bool b)
+{
+	loop = b;
+}
+
+void AnimationManager::Restart()
+{
+	end = false;
+	current_frame = 0;
+}
+
 // Проигрывание текущей анимации до последнего кадра, потом воспроизводится с начала.
 // Возможно добавить функцию для единоразового воспроизведения.
 void AnimationManager::PlayAnimation()
 {
-	current_frame += speed_animation;
-	if (current_frame > end_frame)
-		current_frame -= end_frame;
-	sprite->setTextureRect(sf::IntRect((number_animation * width), (int(current_frame) * height), width, height));
+	if (!end)
+	{
+		current_frame += speed_animation;
+		if (current_frame > end_frame)
+		{
+			if (loop)
+				current_frame -= end_frame;
+			else
+				end = true;
+		}
+		sprite->setTextureRect(sf::IntRect((number_animation * width), (int(current_frame) * height), width, height));
+	}
 }
 
 // Выбор статичного кадра. Не используется совместно с PlayAnimation()

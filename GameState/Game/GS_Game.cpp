@@ -240,6 +240,12 @@ void Game::Render(RenderWin& rw)
 		}
 	}
 
+	if (main_ship.death.DeathEventActive())
+	{	
+	rw.RecordRenderData(main_ship.death.GetBangRenderData());
+	rw.RecordRenderData(main_ship.death.GetSmokeRenderData());
+	}
+
 	rw.RecordRenderData(gui.layer1->GetRenderData());
 	rw.RecordRenderData(gui.layer2->GetRenderData());
 	rw.RecordRenderData(gui.layer3->GetRenderData());
