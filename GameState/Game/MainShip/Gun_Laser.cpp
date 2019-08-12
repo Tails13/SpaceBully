@@ -12,7 +12,7 @@ Gun_Laser::Gun_Laser(Spaceship* ms)
 
 Gun_Laser::Gun_Laser(const Gun_Laser& other)
 {
-	render_component = new RenderComponent("none");
+	render_component = new RenderComponent("Resources/Graphics/Laser_shoot.png");
 
 	this->width = other.width;
 	this->height = other.height;

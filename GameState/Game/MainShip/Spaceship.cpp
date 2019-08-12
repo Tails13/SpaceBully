@@ -27,6 +27,7 @@ void Spaceship::Update()
 	else
 	{
 		death.PlayBangAnimation();
+		death.PlayGameOverMessageAnimation();
 		Fall();
 	}
 		
@@ -54,6 +55,8 @@ void Spaceship::DeathEventStart()
 
 	this->render_component->sprite.setRotation(50.f);
 	death.Set(1);
+
+	AudioSystem::Instance().StopMusic();
 }
 
 void Spaceship::DeathEventStop()

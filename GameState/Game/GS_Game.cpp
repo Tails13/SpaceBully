@@ -117,6 +117,9 @@ void Game::Restart()
 
 	main_ship.hitbox.setPosition(sf::Vector2f(0.f, 250.f));
 	main_ship.DeathEventStop();
+
+	AudioSystem::Instance().StopMusic();
+	AudioSystem::Instance().PlayMusic("Game_theme.ogg");
 }
 
 // Проверяются состояния врагов. Находятся ли они на экране, живы ли и тд.
@@ -244,6 +247,7 @@ void Game::Render(RenderWin& rw)
 	{	
 	rw.RecordRenderData(main_ship.death.GetBangRenderData());
 	rw.RecordRenderData(main_ship.death.GetSmokeRenderData());
+	rw.RecordRenderData(main_ship.death.GetGOMRenderData());
 	}
 
 	rw.RecordRenderData(gui.layer1->GetRenderData());
