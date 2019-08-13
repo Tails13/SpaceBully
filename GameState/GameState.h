@@ -31,6 +31,7 @@ private:
 	void BulletsMove();
 	void BonusMove();
 	void Render(RenderWin&);
+	void GameLogic();
 
 	CollisionHandler collision_handler;
 	Spaceship main_ship;

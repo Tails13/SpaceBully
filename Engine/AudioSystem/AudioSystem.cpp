@@ -3,7 +3,7 @@
 AudioSystem::AudioSystem()
 {
 
-	std::vector<std::string> names = { "Shoot.ogg", "Hit.ogg"};
+	std::vector<std::string> names = { "Shoot.ogg", "Hit.ogg", "Bang.ogg", "Bonus.ogg"};
 
 	for (int i = 0; i < names.size(); i++)
 	{

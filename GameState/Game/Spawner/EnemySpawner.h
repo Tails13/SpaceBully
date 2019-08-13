@@ -16,6 +16,8 @@ public:
 	void Update();
 	void Restart();
 	void UpDelay(float);
+	void DownDelay(float);
+	float GetDelay();
 
 private:
 	EnemyShip* MakeShip(int x, int y) const;

@@ -11,6 +11,7 @@ public:
 		Speed,
 		Double,
 		Laser,
+		LevelDown,
 		Return
 	};
 
@@ -21,6 +22,8 @@ public:
 	int Score();
 	int CurrentBonus();
 	BonusType ActiveBonus();
+
+	int cost_of_level_up;
 
 private:
 	int score;

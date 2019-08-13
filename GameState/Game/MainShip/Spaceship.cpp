@@ -57,6 +57,8 @@ void Spaceship::DeathEventStart()
 	death.Set(1);
 
 	AudioSystem::Instance().StopMusic();
+	AudioSystem::Instance().Play_Sound("Bang.ogg");
+	AudioSystem::Instance().PlayMusic("Game_over_theme.ogg");
 }
 
 void Spaceship::DeathEventStop()
@@ -83,10 +85,8 @@ void Spaceship::Fall()
 
 		velocity.y = 4.5f;
 		this->hitbox.move(sf::Vector2f(velocity.x, velocity.y));
-		std::cout << this->hitbox.getPosition().y << std::endl;
 	}
 }
-
 
 void Spaceship::Move(Spaceship::Direction dir)
 {

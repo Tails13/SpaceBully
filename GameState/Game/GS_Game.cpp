@@ -56,6 +56,17 @@ void Game::Update(Engine& engine)
 					main_ship.DoubleShootDeactived();
 					main_ship.Equip(Spaceship::GunType::Laser);
 				}
+				else if (game_stuff.ActiveBonus() == GameStuff::BonusType::LevelDown)
+				{
+					if (enemy_spawner_1.GetDelay() <= 320 &&
+						enemy_spawner_2.GetDelay() <= 200 &&
+						enemy_spawner_3.GetDelay() <= 800)
+					{
+						enemy_spawner_1.DownDelay(80.f);
+						enemy_spawner_2.DownDelay(50.f);
+						enemy_spawner_3.DownDelay(200.f);
+					}
+				}
 
 				game_stuff.ClearBonus();
 			}
@@ -74,6 +85,8 @@ void Game::Update(Engine& engine)
 	BulletsMove();
 	BonusMove();
 
+	GameLogic();
+
 	engine.rw.RecordRenderData(main_ship.render_component->GetRenderData());
 	Render(engine.rw);
 
@@ -87,6 +100,12 @@ void Game::Restart()
 	enemy_spawner_1.Restart();
 	enemy_spawner_2.Restart();
 	enemy_spawner_3.Restart();
+
+	game_stuff.ClearBonus();
+	game_stuff.ClearScore();
+
+	main_ship.Equip(Spaceship::GunType::Simple);
+	main_ship.DoubleShootDeactived();
 
 	while (!enemy_list.empty())
 	{
@@ -139,8 +158,6 @@ void Game::EnemiesMove()
 						bonus_list.push_back(Bonus::Create((*it)->X() + 15, (*it)->Y() + 15));
 
 					game_stuff.AddScore(50);
-					// @@@@@
-					//std::cout << game_stuff.Score() << std::endl;
 				}
 
 				EnemyShip * temp = *it;
@@ -254,6 +271,23 @@ void Game::Render(RenderWin& rw)
 	rw.RecordRenderData(gui.layer2->GetRenderData());
 	rw.RecordRenderData(gui.layer3->GetRenderData());
 	rw.RenderText(&gui.txt_score);
+}
+
+void Game::GameLogic()
+{
+	if (game_stuff.Score() >= game_stuff.cost_of_level_up)
+	{
+		game_stuff.cost_of_level_up += 3000;
+
+		if (enemy_spawner_1.GetDelay() > 40 &&
+			enemy_spawner_2.GetDelay() > 25 &&
+			enemy_spawner_3.GetDelay() > 100)
+		{
+			enemy_spawner_1.UpDelay(40.f);
+			enemy_spawner_2.UpDelay(25.f);
+			enemy_spawner_3.UpDelay(100.f);
+		}
+	}
 }
 
 Game::~Game()

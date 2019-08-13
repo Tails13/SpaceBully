@@ -84,7 +84,8 @@ void CollisionHandler::CheckCollisions()
 	{
 		if (CheckMainShipCollision(main_ship, *enemy))
 		{
-			main_ship->DeathEventStart();
+			if (!main_ship->death.DeathEventActive())
+				main_ship->DeathEventStart();
 		}
 	}
 
@@ -92,8 +93,7 @@ void CollisionHandler::CheckCollisions()
 	{
 		if (CheckBonusCollision(main_ship, *bonus))
 		{
-			//std::cout << "Bonus catched!!" << std::endl;
-
+			AudioSystem::Instance().Play_Sound("Bonus.ogg");
 			(*bonus)->distruction = true;
 		}
 	}

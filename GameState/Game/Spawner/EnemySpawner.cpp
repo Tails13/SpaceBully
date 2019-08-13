@@ -51,6 +51,11 @@ void EnemySpawner::UpDelay(float x)
 	delay -= x;
 }
 
+void EnemySpawner::DownDelay(float x)
+{
+	delay += x;
+}
+
 void EnemySpawner::Spawn()
 {
 	for (int i = 0; i < 10; i++)
@@ -69,3 +74,7 @@ EnemyShip* EnemySpawner::MakeShip(int x, int y) const
 	return temp;
 }
 
+float EnemySpawner::GetDelay()
+{
+	return delay;
+}
