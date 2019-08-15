@@ -50,19 +50,15 @@ class Menu : public GameState
 {
 public:
 	Menu();
+	~Menu();
 	enum MenuOption {NewGame, LeaderBoard, Quit};
 	virtual void Update(Engine&);
 
 private:
 	void Render(Engine&);
-	void CursorMove();
 
-	sf::RectangleShape cursor;
-	sf::RectangleShape option_1;
-	sf::RectangleShape option_2;
-	sf::RectangleShape option_3;
 	MenuOption current_option;
-	float cursor_new_position;
 	bool cursor_switch;
-
+	float switch_cd;
+	RenderComponent* menu_gui;
 };
