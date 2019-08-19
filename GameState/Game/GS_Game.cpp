@@ -103,6 +103,7 @@ void Game::Restart()
 
 	game_stuff.ClearBonus();
 	game_stuff.ClearScore();
+	game_stuff.open_for_record = true;
 
 	main_ship.Equip(Spaceship::GunType::Simple);
 	main_ship.DoubleShootDeactived();
@@ -288,6 +289,14 @@ void Game::GameLogic()
 			enemy_spawner_3.UpDelay(100.f);
 		}
 	}
+
+	if (main_ship.death.DeathEventActive())
+		if (game_stuff.open_for_record)
+		{
+			game_stuff.SortRecordList(game_stuff.Score());
+			game_stuff.open_for_record = false;
+		}
+
 }
 
 Game::~Game()

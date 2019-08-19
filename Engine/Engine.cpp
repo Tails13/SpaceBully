@@ -4,6 +4,7 @@ Engine::Engine()
 {
 	this->game = new Game;
 	this->menu = new Menu;
+	this->leader_board = new LeaderBoard;
 	state = menu;
 	AudioSystem::Instance().PlayMusic("Main_theme.ogg"); //******
 }
@@ -25,8 +26,6 @@ void Engine::Update()
 	rw.RecordRenderData(background.render_component->GetRenderData());
 
 	state->Update(*this);
-
-	
 }
 
 // Смена сосотояний игры (меню, игра и тд)
@@ -35,15 +34,23 @@ void Engine::StateSwitch(int i)
 {
 	if (i == 0)
 	{
+		if (state == game)
+		{
+			AudioSystem::Instance().StopMusic();
+			AudioSystem::Instance().PlayMusic("Main_theme.ogg"); //******
+		}
+		
 		state = menu;
-		AudioSystem::Instance().StopMusic();
-		AudioSystem::Instance().PlayMusic("Main_theme.ogg"); //******
 	}
 	else if (i == 1)
 	{
 		state = game;
 		AudioSystem::Instance().StopMusic();
 		AudioSystem::Instance().PlayMusic("Game_theme.ogg"); //**********
+	}
+	else if (i == 2)
+	{
+		state = leader_board;
 	}
 }
 

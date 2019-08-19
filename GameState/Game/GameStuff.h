@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
 
 class GameStuff
 {
@@ -22,7 +25,9 @@ public:
 	int Score();
 	int CurrentBonus();
 	BonusType ActiveBonus();
+	void SortRecordList(int score);
 
+	bool open_for_record;
 	int cost_of_level_up;
 
 private:
@@ -30,4 +35,5 @@ private:
 	int bonus_count;
 	int current_bonus;
 	BonusType active_bonus;
+	std::vector<int> record_list;
 };

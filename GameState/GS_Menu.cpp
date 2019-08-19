@@ -21,7 +21,7 @@ void Menu::Update(Engine& engine)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			
+			switch_cd = 0.f;
 			if (current_option == MenuOption::NewGame)
 			{
 				current_option = MenuOption::LeaderBoard;
@@ -39,6 +39,7 @@ void Menu::Update(Engine& engine)
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
+			switch_cd = 0.f;
 			if (current_option == MenuOption::Quit)
 			{
 				current_option = MenuOption::LeaderBoard;
@@ -64,6 +65,10 @@ void Menu::Update(Engine& engine)
 		else if (current_option == MenuOption::Quit)
 		{
 			exit(0);
+		}
+		else if (current_option == MenuOption::LeaderBoard)
+		{
+			engine.StateSwitch(2);
 		}
 	}
 

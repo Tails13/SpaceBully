@@ -62,3 +62,14 @@ private:
 	float switch_cd;
 	RenderComponent* menu_gui;
 };
+
+class LeaderBoard : public GameState
+{
+public:
+	LeaderBoard();
+	~LeaderBoard();
+	virtual void Update(Engine&);
+
+private:
+	void Render(Engine&);
+};
