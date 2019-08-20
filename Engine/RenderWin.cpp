@@ -4,8 +4,6 @@ RenderWin::RenderWin()
 {
 	window.create(sf::VideoMode(1000, 600), "Space Bully");
 	window.setVerticalSyncEnabled(true);
-
-	txt_score = nullptr;
 }
 
 void RenderWin::Render(float interpolation)
@@ -35,10 +33,11 @@ void RenderWin::Render(float interpolation)
 		shape_list.pop_front();
 	}
 
-	if (txt_score != nullptr)
+	while (!text_list.empty())
 	{
-		window.draw(*txt_score);
-		txt_score->setString("");
+		window.draw(*text_list.front());
+
+		text_list.pop_front();
 	}
 
 	window.display();
@@ -46,7 +45,7 @@ void RenderWin::Render(float interpolation)
 
 void RenderWin::RenderText(sf::Text* text)
 {
-	txt_score = text;
+	text_list.push_back(text);
 }
 
 void RenderWin::RecordRenderData(RenderData render_data)

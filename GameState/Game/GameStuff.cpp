@@ -77,8 +77,7 @@ void GameStuff::SortRecordList(int score)
 		ofs.open("Resources/records.txt");
 		for (int i = 0; i < 6; i++)
 		{
-			int temp = i + 1;
-			ofs << temp << ". " << record_list[i] << std::endl;
+			ofs << record_list[i] << '\n';
 		}
 		ofs.close();
 	}

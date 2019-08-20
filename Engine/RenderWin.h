@@ -22,7 +22,6 @@ public:
 private:
 
 	std::list<sf::Shape*> shape_list;
+	std::list<sf::Text*> text_list;
 	std::list<RenderData> render_list;
-
-	sf::Text* txt_score;
 };

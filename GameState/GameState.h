@@ -69,7 +69,13 @@ public:
 	LeaderBoard();
 	~LeaderBoard();
 	virtual void Update(Engine&);
+	void ReadRecords();
+
+	std::vector<sf::Text> t_records;
 
 private:
 	void Render(Engine&);
+	sf::Font font;
+	std::string str;
+
 };
